@@ -1,0 +1,432 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+body {
+    margin:0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/******************/
+/* PAGE CONNEXION */
+/* PAGE INSCRIPTION */
+/******************/
+
+
+.gauche {
+    background-color: #FAB564 ;
+    width: 40%;
+    height: 100%;
+    position: absolute;
+}
+
+.droite {
+    border-radius: 30px 0px 0px 30px;
+    float:right;
+    height: 100%;
+    width: 60%;
+    background-color: white;
+    position: static;
+}
+
+
+.box {
+	width: 320px;
+	height: 550px;
+	color: black;
+	border-radius: 25px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 12%;
+    margin-left: 30%;
+}
+
+.box input {
+	width: 80%;
+	margin-bottom: 20px;
+	margin: 20px auto;
+	display: block;
+}
+
+.box input[type="text"], .box input[type="password"] {
+	border: none;
+	border-bottom: 1px solid black;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: black;
+	font-size: 17px;
+}
+
+.box input[type="submit"] {
+	border: none;
+	outline: none;
+	height: 40px;
+	background: #FAB564;
+	color: white;
+	font-size: 19px;
+	border-radius: 25px;
+	padding: 1px 20px;
+	margin: 10px auto;
+}
+
+.box input[type="submit"]:hover {
+	cursor: pointer;
+	background: #fca950;
+}
+
+
+.box a {
+	font-size: 10px;
+	line-height: 20px;
+	color: white;
+}
+
+input[type="date"] {
+	background-color: #FAB564;
+	padding: 10px;
+    width: 75%;
+	position: flex;
+	font-family: sans-serif;
+	color: white;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	left: 22px;
+	bottom: 214px;
+}
+
+::-webkit-calendar-picker-indicator {
+	background-color: white;
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.gauche h1{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 90px;
+    color: #ffffff;
+    margin-left: 10px;
+    margin-top: 80px;
+}
+
+p{
+    font-size: 25px;
+    color: #ffffff;
+    margin-left: 10px;
+    padding-top: 0px;
+    margin-top: -10px;
+}
+
+.formulaire{
+    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.compte{
+	font-size: 13px;
+	padding-top: 2%;
+	color: black;
+}
+
+/******************/
+/*  PAGE ACCUEIL  */
+/******************/
+
+header {	
+	font-size: 33px;
+	outline: none;
+	color: white;
+	word-spacing: 50px;
+	background-color: #FAB564;
+	width: 100%;
+	padding-bottom: 2%;
+	padding-top: 2%;
+}
+
+.logo{
+	text-align: left;
+	font-size: 40px;
+	margin-left: 2%;
+}	
+
+header a:link{
+	color:white;
+	text-decoration:none;
+}
+
+header a:visited{
+	color:white;
+	text-decoration:none;
+}
+
+header a:hover{
+	color:whitesmoke;
+	text-decoration:none;
+}
+
+header a:active{
+	color:whitesmoke;
+	text-decoration:none;
+}
+
+nav{
+	text-align: right;
+	width: 60%;
+	margin-left: 35%;
+	margin-top: -3%;
+}
+
+.evenement {
+	display: flex;
+	justify-content: center;
+}
+
+.content {
+	margin: 0;
+	padding: 0;
+	width: 80%;
+	height: 300px;
+	background-color: black;
+	border: 1px solid black;
+	margin-top: 3%;
+	border-radius: 30px;
+}
+
+/*img{
+	max-width: 100%;
+	max-height: 100%;
+}*/
+
+.content p {
+	text-align: left;
+	margin-top: 2%;
+	margin-left: 15px;
+}
+
+
+.card {
+	width: 60%;
+	height: 150px;
+	margin-top: 3%;
+	display: flex;
+	justify-content: space-between;
+	margin-left: 20%;
+}
+
+.left{
+	width: 300px;
+	background-color: #d9d9d9;
+	height: 100%;
+	border-radius: 30px;
+	border: 1px solid black;
+}
+
+.right{
+	width: 300px;
+	background-color: #d9d9d9;
+	height: 100%;
+	border-radius: 30px;
+	border: 1px solid black;
+}
+
+.card a{
+	color: black;
+	text-align: center;
+	align-items: center;
+	margin-top: 25%;
+	font-size: 30px;
+	text-decoration: none;
+	display: inline-block;
+	margin-left: 37%;
+}
+
+/******************/
+/*  PAGE PROFIL   */
+/******************/
+
+.container2 {
+    width: 500px;
+    height: 500px;
+    border: 1px black solid;
+    border-radius: 10%;
+    background-color:#FAB564;
+    margin-left: 30%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.centered-element{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70%;
+    padding: 15px;
+    width: 120px;
+    display: inline-block;
+}
+
+.centered-element img {
+    border-radius: 50%;
+    position: absolute;
+    width: 10%;
+    height: 20%;
+    left: 35%;
+    top: 20%;
+	border: 1px solid black;
+}
+
+.detail a {
+    margin-left: auto;
+    margin-right: auto; 
+    padding: 15px;
+    width: 120px;
+    background-color: grey;
+}
+
+.detail a:link{
+	color:white;
+	text-decoration:none;
+}
+
+.detail a:visited{
+	color:white;
+	text-decoration:none;
+}
+.detail a:hover{
+	color:whitesmoke;
+	text-decoration:none;
+}
+.detail a:active{
+	color:whitesmoke;
+	text-decoration:none;
+}
+
+.info {
+    margin-left: auto;
+    margin-right: auto; 
+    padding: auto;
+    width: 120px;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+}
+
+/****************/
+/*  PARAMETRES  */
+/****************/
+
+.contenu a:link{
+	color:white;
+	text-decoration:none;
+}
+.contenu a:visited{
+	color:white;
+	text-decoration:none;
+}
+.contenu a:hover{
+	color:whitesmoke;
+	text-decoration:none;
+}
+.contenu a:active{
+	color:whitesmoke;
+	text-decoration:none;
+}
+
+.contenu a {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8%;
+	width: 10%;
+    background-color: #FAB564;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mention a{
+	position: fixed;
+	bottom: 1%;
+	width: 100%;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	font-size: 12px;
+}
+
+/*****************/
+/*CREATION EVENT */
+/*****************/
+
+.donnée{
+	width: 40%;
+	height: 80%;
+    margin-top: 8%;
+    text-align: center;
+	color: black;
+}
+
+.donnée input {
+	padding-top: 15px;
+	width: 60%;
+	margin-bottom: 20px;
+	margin: 20px auto;
+	display: block;
+}
+
+.donnée button{
+	border: none;
+	width: 60%;
+	outline: none;
+	height: 40px;
+	background: #FAB564;
+	color: white;
+	font-size: 19px;
+	border-radius: 25px;
+	padding: 1px 20px;
+	margin: 10px auto;
+}
+
+.donnée input[type="text"] {
+	border: none;
+	border-bottom: 1px solid black;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: black;
+	font-size: 17px;
+}
+
+.donnée button[type="submit"]:hover {
+	cursor: pointer;
+	background: #fca950;
+}
+
+.zone {
+	width: 70%;
+	height: 50%;
+	margin-top: 3%;
+	display: flex;
+	justify-content: space-between;
+	margin-left: 15%;
+}
+
+.qrcode{
+	width: 50%;
+	margin-top: 6%;
+	display: flex;
+	justify-content: center;
+	border-left: 1px solid black;
+}
+
+.qrcode p{
+	color:black;
+	justify-content: center;
+	text-align: center;
+}
+
+
+
+
+
