@@ -20,12 +20,12 @@
     <div class="droite">
         <div class="connexion">
             <div class="box">
-                <form action="Accueil.html">
+                <form action="Accueil.php">
                     <h1 class="formulaire">CONNEXION</h1>
                     <input type="text" placeholder="Adresse mail">
                     <input type="password" placeholder="Mot de passe">
                     <input type="submit" value="Connexion">
-                    <a href="Inscription.html">
+                    <a href="Inscription.php">
                         <p class="compte"> Créer un compte !</p>
                     </a>
                 </form>

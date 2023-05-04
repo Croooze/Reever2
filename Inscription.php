@@ -16,7 +16,7 @@
     </div>
     <div class="droite">
         <div class="box">
-            <form action="Accueil.html">
+            <form action="Accueil.php">
                 <h1 class="formulaire">INSCRIPTION</h1>
                 <input type="text" placeholder="Nom">
                 <input type="text" placeholder="Prénom">

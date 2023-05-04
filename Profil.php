@@ -12,11 +12,11 @@
 <body>
 
     <header>
-        <a href="Accueil.html" class="logo">REEVER</a>
+        <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-            <a href="Notification.html">Notification</a>
-            <a href="Profil.html">Profil</a>
-            <a href="Paramètre.html">Paramètres</a>
+            <a href="Notification.php">Notification</a>
+            <a href="Profil.php">Profil</a>
+            <a href="Paramètre.php">Paramètres</a>
         </nav>
     </header>
 
