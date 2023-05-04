@@ -10,35 +10,37 @@
 </head>
 
 <?php
-  $host = 'localhost';
-  $dbname = 'reever';
-  $username = 'root';
-  $password = 'root';
-    
-  $dsn = "mysql:host=$host;dbname=$dbname"; 
-  // récupérer tous les utilisateurs
-  $sql = "SELECT * FROM event";
-   
-  try{
-   $pdo = new PDO($dsn, $username, $password);
-   $stmt = $pdo->query($sql);
-   
-   if($stmt === false){
-    die("Erreur");
-   }
-   
-  }catch (PDOException $e){
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = 'root';
+
+$dsn = "mysql:host=$host;dbname=$dbname";
+// récupérer tous les utilisateurs
+$sql = "SELECT * FROM event";
+
+try {
+    $pdo = new PDO($dsn, $username, $password);
+    $stmt = $pdo->query($sql);
+
+    if ($stmt === false) {
+        die("Erreur");
+    }
+
+} catch (PDOException $e) {
     echo $e->getMessage();
-  }
+}
 ?>
-    
+
 <tbody>
-     <?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
-     <tr>
-       <td><?php echo ($row['nom']); ?></td>
-     </tr>
-     <?php endwhile; ?>
-   </tbody>
+    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+        <tr>
+            <td>
+                <?php echo ($row['nom']); ?>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+</tbody>
 
 
 <body>
@@ -53,9 +55,15 @@
 
     <section class="evenement">
         <div class="content">
-            <p><?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?></p>
-            <p><?php echo ($row['nom']); ?></p>
-            <p><?php endwhile; ?></p>
+            <p>
+                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                </p>
+                <p>
+                    <?php echo ($row['nom']); ?>
+                </p>
+                <p>
+                <?php endwhile; ?>
+            </p>
         </div>
     </section>
 

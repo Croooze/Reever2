@@ -16,13 +16,13 @@
     </div>
     <div class="droite">
         <div class="box">
-            <form action="Accueil.php">
+            <form method="post" action="Accueil.php">
                 <h1 class="formulaire">INSCRIPTION</h1>
-                <input type="text" placeholder="Nom">
-                <input type="text" placeholder="Prénom">
-                <input type="text" placeholder="Adresse mail">
-                <input type="password" placeholder="Mot de passe">
-                <input type="password" placeholder="Confirmer le mot de passe">
+                <input type="text" id="nom" placeholder="Nom">
+                <input type="text" id="prenom" placeholder="Prénom">
+                <input type="text" id="email" placeholder="Adresse mail">
+                <input type="password" id="mdp" placeholder="Mot de passe">
+                <input type="password" id="mdp" placeholder="Confirmer le mot de passe">
                 <input class="date" type="date" id="bday" name="bday">
                 <input type="submit" value="Inscription">
             </form>
