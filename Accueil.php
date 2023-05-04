@@ -9,6 +9,38 @@
     <link rel='stylesheet' href='style.css'>
 </head>
 
+<?php
+  $host = 'localhost';
+  $dbname = 'emp';
+  $username = 'root';
+  $password = 'root';
+    
+  $dsn = "mysql:host=$host;dbname=$dbname"; 
+  // récupérer tous les utilisateurs
+  $sql = "SELECT * FROM emp";
+   
+  try{
+   $pdo = new PDO($dsn, $username, $password);
+   $stmt = $pdo->query($sql);
+   
+   if($stmt === false){
+    die("Erreur");
+   }
+   
+  }catch (PDOException $e){
+    echo $e->getMessage();
+  }
+?>
+    
+<tbody>
+     <?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
+     <tr>
+       <td><?php echo ($row['job']); ?></td>
+     </tr>
+     <?php endwhile; ?>
+   </tbody>
+
+
 <body>
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
