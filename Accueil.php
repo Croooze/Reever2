@@ -11,13 +11,13 @@
 
 <?php
   $host = 'localhost';
-  $dbname = 'emp';
+  $dbname = 'reever';
   $username = 'root';
   $password = 'root';
     
   $dsn = "mysql:host=$host;dbname=$dbname"; 
   // récupérer tous les utilisateurs
-  $sql = "SELECT * FROM emp";
+  $sql = "SELECT * FROM event";
    
   try{
    $pdo = new PDO($dsn, $username, $password);
@@ -35,7 +35,7 @@
 <tbody>
      <?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
      <tr>
-       <td><?php echo ($row['job']); ?></td>
+       <td><?php echo ($row['nom']); ?></td>
      </tr>
      <?php endwhile; ?>
    </tbody>
@@ -53,8 +53,9 @@
 
     <section class="evenement">
         <div class="content">
-            <p>LE LOFT</p>
-
+            <p><?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?></p>
+            <p><?php echo ($row['nom']); ?></p>
+            <p><?php endwhile; ?></p>
         </div>
     </section>
 
