@@ -21,7 +21,7 @@
 
     <div class="contenu">
         <a href="">Désactiver le compte</a>
-        <a href="reever.php">Déconnexion</a>
+        <a href="Connexion.php">Déconnexion</a>
     </div>
 
     <div class="mention">
