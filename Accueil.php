@@ -13,7 +13,7 @@
 $host = 'localhost';
 $dbname = 'reever';
 $username = 'root';
-$password = 'root';
+$password = '';
 
 $dsn = "mysql:host=$host;dbname=$dbname";
 // récupérer tous les utilisateurs
