@@ -28,9 +28,10 @@ if (isset($_POST['envoyer'])) {
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
+    $mdp_confirm = $_POST['mdp_confirm'];
     $bday = $_POST['bday'];
 
-    $sql = ("INSERT INTO `user`(`nom`, `prenom`, `mdp`, `email`) VALUES (`:nom`, `:prenom`, `:mdp`, `:email`)");
+    $sql = ("INSERT INTO user(nom, prenom, mdp, email) VALUES (:nom, :prenom, :mdp, :email)");
     $stmt = $conn->prepare($sql);
 
     $stmt->bindParam(':nom', $nom);
@@ -39,7 +40,7 @@ if (isset($_POST['envoyer'])) {
     $stmt->bindParam(':mdp', $mdp);
     $stmt->execute();
 }
-?>
+?> 
 
 <body>
     <div class="gauche">
