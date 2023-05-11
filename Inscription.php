@@ -28,7 +28,6 @@ if (isset($_POST['envoyer'])) {
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
-    $mdp_confirm = $_POST['mdp_confirm'];
     $bday = $_POST['bday'];
 
     $sql = ("INSERT INTO user(nom, prenom, mdp, email) VALUES (:nom, :prenom, :mdp, :email)");
@@ -49,7 +48,7 @@ if (isset($_POST['envoyer'])) {
     </div>
     <div class="droite">
         <div class="box">
-            <form method="post" action="">
+            <form method="post" action="Accueil.php">
                 <h1 class="formulaire">INSCRIPTION</h1>
                 <input type="text" id="nom" name="nom" placeholder="Nom">
                 <input type="text" id="prenom" name="prenom" placeholder="Prénom">
