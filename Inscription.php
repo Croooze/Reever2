@@ -50,12 +50,12 @@ if (isset($_POST['envoyer'])) {
         <div class="box">
             <form method="post" action="Accueil.php">
                 <h1 class="formulaire">INSCRIPTION</h1>
-                <input type="text" id="nom" name="nom" placeholder="Nom">
-                <input type="text" id="prenom" name="prenom" placeholder="Prénom">
-                <input type="text" id="email" name="email" placeholder="Adresse mail">
-                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe">
-                <input type="password" id="mdp" placeholder="Confirmer le mot de passe">
-                <input class="date" type="date" id="bday" name="bday">
+                <input type="text" id="nom" name="nom" placeholder="Nom" required>
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+                <input type="text" id="email" name="email" placeholder="Adresse mail" required>
+                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
+                <input type="password" id="mdp" placeholder="Confirmer le mot de passe" required>
+                <input class="date" type="date" id="bday" name="bday" required>
                 <input type="submit" value="Inscription" name="envoyer">
             </form>
         </div>

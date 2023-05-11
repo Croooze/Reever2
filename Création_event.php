@@ -22,28 +22,50 @@
 
     <section class="zone">
         <div class="donnée">
-            <form>
+            <form action="" method="POST">
                 <h1>ÉVÉNEMENT</h1>
-                <input type="text" class="qr_texte" placeholder="Nom de l'événement" onchange="generateur()">
-                <button type="submit" onclick="generateur()">Générer le QR code</button>
+                <input type="text" name="nom" placeholder="Nom de l'événement">
+                <button type="submit">Générer le QR code</button>
             </form>
         </div>
 
-        <div class="qrcode">
-            <p>QR CODE : </p>
-            <script src="qrcode.min.js"></script>
-            <script type="text/javascript">
-                var qr_texte = document.querySelector(".qr_texte");
-
-                function generateur() {
-                    var qrcode = document.querySelector(".qr_code");
-                    qrcode.style.display = "flex";
-                    new QRCode(qrcode, qr_texte.value);
-                }
-            </script>
-        </div>
+        <div class="qrcode" id="qrcode"></div>
     </section>
 
-</body>
+    <script src="qrcode.min.js"></script>
+    <script type="text/javascript">
+        function generateur(qr_texte) {
+            var qrcode = document.querySelector("#qrcode");
+            qrcode.style.display = "flex";
+            new QRCode(qrcode, qr_texte);
+        }
+    </script>
 
+</body>
+<?php
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "la connexion a échoué: " . $e->getMessage();
+}
+
+if (isset($_POST['nom'])) {
+    $nom = $_POST['nom'];
+
+    $sql = ("INSERT INTO event(nom) VALUES (:nom)");
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':nom', $nom);
+    $stmt->execute();
+
+    $url = "https://www.google.com/search?q=" . urlencode($nom);
+    echo "<script>generateur('$url')</script>";
+}
+?>
 </html>
