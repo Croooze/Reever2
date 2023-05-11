@@ -9,6 +9,38 @@
     <link rel='stylesheet' href='style.css'>
 </head>
 
+<?php
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+} catch (PDOException $e) {
+    echo "la connexion a échoué: " . $e->getMessage();
+}
+
+if (isset($_POST['envoyer'])) {
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $email = $_POST['email'];
+    $mdp = $_POST['mdp'];
+    $bday = $_POST['bday'];
+
+    $sql = ("INSERT INTO `user`(`nom`, `prenom`, `mdp`, `email`) VALUES (`:nom`, `:prenom`, `:mdp`, `:email`)");
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':nom', $nom);
+    $stmt->bindParam(':prenom', $prenom);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':mdp', $mdp);
+    $stmt->execute();
+}
+?>
+
 <body>
     <div class="gauche">
         <h1>REEVER</h1>
@@ -24,7 +56,7 @@
                 <input type="password" id="mdp" placeholder="Mot de passe">
                 <input type="password" id="mdp" placeholder="Confirmer le mot de passe">
                 <input class="date" type="date" id="bday" name="bday">
-                <input type="submit" value="Inscription">
+                <input type="submit" value="Inscription" name="envoyer">
             </form>
         </div>
     </div>
