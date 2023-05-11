@@ -31,18 +31,6 @@ try {
     echo $e->getMessage();
 }
 ?>
-
-<tbody>
-    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-        <tr>
-            <td>
-                <?php echo ($row['nom']); ?>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-</tbody>
-
-
 <body>
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
