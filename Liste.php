@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,9 @@
     <link rel='stylesheet' href='style.css'>
     <title>Document</title>
 </head>
+
 <body>
-<header>
+    <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
             <a href="Notification.php">Notification</a>
@@ -22,4 +24,5 @@
 
     </div>
 </body>
+
 </html>
