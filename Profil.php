@@ -25,7 +25,7 @@
             <img src="img/3.png" alt="image profil">
         </div>
         <div class="info">
-            <p><b>Sarah Pell</b></p>
+            <p><?php echo ($row['nom']); ?></p>
             <p>Je suis jeune et pleine d'énergie</p>
         </div>
         <div class="detail">
