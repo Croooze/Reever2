@@ -38,6 +38,8 @@ if (isset($_POST['envoyer'])) {
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':mdp', $mdp);
     $stmt->execute();
+    header("Location: Accueil.php");
+        exit();
 }
 ?> 
 
@@ -57,6 +59,8 @@ if (isset($_POST['envoyer'])) {
                 <input type="password" id="mdp" placeholder="Confirmer le mot de passe" required>
                 <input class="date" type="date" id="bday" name="bday" required>
                 <input type="submit" value="Inscription" name="envoyer">
+                <a href="Connexion.php">
+                        <p class="compte"> Déja un compte ? Connecte toi !</p>
             </form>
         </div>
     </div>
