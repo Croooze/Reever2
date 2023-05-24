@@ -1,48 +1,39 @@
 <?php
+session_start();
 $host = 'localhost';
 $dbname = 'reever';
 $username = 'root';
 $password = '';
 
+$errors = array(); // Variable pour stocker les erreurs
+
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "La connexion a échoué : " . $e->getMessage();
+    $errors[] = "La connexion a échoué : " . $e->getMessage();
 }
 
-if (isset($_POST['envoyer'])) {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $mdp = $_POST['mdp'];
-
-    // Vérification de la correspondance du mot de passe
-    $mdpConfirme = $_POST['mdp_confirme'];
-  
-
-    // Vérification si l'utilisateur existe déjà
-    $sql = "SELECT * FROM user WHERE email=:email";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-   
-
-    // Hashage du mot de passe
-    $hashedPassword = password_hash($mdp, PASSWORD_DEFAULT);
-
-    // Insertion des données dans la base de données
-    $sql = "INSERT INTO user (nom, prenom, email, mdp) VALUES (:nom, :prenom, :email, :mdp)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':nom', $nom);
-    $stmt->bindParam(':prenom', $prenom);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':mdp', $hashedPassword);
-    $stmt->execute();
-
-    // Redirection après l'insertion
-    header("Location: Accueil.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: Connexion.php");
     exit;
+}
+
+$userID = $_SESSION['user_id'];
+
+// Récupération des données de l'utilisateur connecté
+$sql = "SELECT * FROM user WHERE id=:id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':id', $userID);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (empty($user)) {
+    $errors[] = "Utilisateur introuvable!";
+} else {
+    // Afficher les données de l'utilisateur
+    echo "Nom: " . $user['nom'] . "<br>";
+    echo "Prénom: " . $user['prenom'] . "<br>";
+    echo "Email: " . $user['email'] . "<br>";
 }
 ?>

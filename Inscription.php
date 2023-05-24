@@ -87,7 +87,7 @@ if (isset($_POST['envoyer'])) {
                 <input type="text" id="email" name="email" placeholder="Adresse mail" required>
                 <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
                 <input type="password" id="mdp_confirme" name="mdp_confirme" placeholder="Confirmer le mot de passe" required>
-                <input type="submit" value="Envoyer" name="envoyer">
+                <input type="submit" value="Inscription" name="envoyer">
                 <a href="Connexion.php">
                     <p class="compte">Déjà inscrit ? Se connecter</p>
                 </a>
@@ -95,5 +95,4 @@ if (isset($_POST['envoyer'])) {
         </div>
     </div>
 </body>
-
 </html>
