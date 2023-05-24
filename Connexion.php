@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
     // Vérification du mot de passe
     if ($user && password_verify($mdp, $user['mdp'])) {
         // Mot de passe correct, l'utilisateur est connecté
-        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_id'] = $user['id_user'];
         header("Location: Accueil.php");
         exit;
     } else {
@@ -64,11 +64,11 @@ if (isset($_POST['login'])) {
                     </div>
                 <?php } ?>
                 <input type="text" id="email" name="email" placeholder="Adresse mail" required>
-                    <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
-                    <input type="submit" value="Connexion" name="login">
-                    <a href="Inscription.php">
-                        <p class="compte"> Créer un compte !</p>
-                    </a>
+                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
+                <input type="submit" value="Connexion" name="login">
+                <a href="Inscription.php">
+                    <p class="compte"> Créer un compte !</p>
+                </a>
             </form>
         </div>
     </div>

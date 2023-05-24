@@ -18,7 +18,7 @@ if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 
     // Effectuez une requête pour récupérer les informations de l'utilisateur
-    $sql = "SELECT nom, prenom FROM user WHERE id_user = :user_id";
+    $sql = "SELECT nom, prenom, description, photo FROM user WHERE id_user = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $userId);
     $stmt->execute();
@@ -27,6 +27,8 @@ if (isset($_SESSION['user_id'])) {
     if ($user) {
         $nomUtilisateur = $user['nom'];
         $prenomUtilisateur = $user['prenom'];
+        $descriptionUtilisateur = $user['description'];
+        $photoUtilisateur = $user['photo'];
     }
 }
 ?>
@@ -41,7 +43,6 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="style.css">
     <title>Profil</title>
 </head>
-
 <body>
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
@@ -53,7 +54,11 @@ if (isset($_SESSION['user_id'])) {
     </header>
     <div class="container2">
         <div class="centered-element">
-            <img src="img/3.png" alt="image profil">
+            <?php if ($user && $photoUtilisateur) { ?>
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($photoUtilisateur); ?>" alt="image profil">
+            <?php } else { ?>
+                <img src="img\3.png" alt="image profil">
+            <?php } ?>
         </div>
         <div class="info">
             <?php if ($user) { ?>

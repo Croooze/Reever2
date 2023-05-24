@@ -1,38 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+$errors = array(); // Variable pour stocker les erreurs
 
-<body>
-    <section class="zone">
-        <div class="donnée">
-            <form>
-                <h1>ÉVÉNEMENT</h1>
-                <input type="text" class="qr_texte" placeholder="Nom de l'événement" onchange="generateur()">
-                <button type="submit" onclick="generateur()">Générer le QR code</button>
-            </form>
-        </div>
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    $errors[] = "La connexion a échoué : " . $e->getMessage();
+}
 
-        <div class="qrcode">
-            <p>QR CODE : </p>
-            <script src="qrcode.min.js"></script>
-            <script type="text/javascript">
-                var qr_texte = document.querySelector(".qr_texte");
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
 
-                function generateur() {
-                    var qrcode = document.querySelector(".qr_code");
-                    qrcode.style.display = "flex";
-                    new QRCode(qrcode, qr_texte.value);
-                }
-            </script>
-        </div>
-    </section>
+    // Récupérer les informations de l'utilisateur à partir de la base de données
+    $sql = "SELECT * FROM user WHERE id_user = :userId";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-</body>
-
-</html>
+    // Utiliser les informations de l'utilisateur
+    if ($user) {
+        echo "Utilisateur connecté : " . $user['prenom']. $user['nom']; // Remplacez 'nom' par le nom de la colonne contenant le nom de l'utilisateur dans votre table 'user'
+    }
+}
+?>
