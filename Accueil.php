@@ -49,9 +49,7 @@ try {
                 <p>
                     <?php echo ($row['nom']); ?>
                 </p>
-                <p>
                 <?php endwhile; ?>
-            </p>
         </div>
     </section>
 

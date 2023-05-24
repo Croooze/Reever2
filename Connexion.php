@@ -14,7 +14,7 @@ try {
     $errors[] = "La connexion a échoué : " . $e->getMessage();
 }
 
-if (isset($_POST['envoyer'])) {
+if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
 
