@@ -9,7 +9,7 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "la connexion a échoué: " . $e->getMessage();
+    echo "La connexion a échoué : " . $e->getMessage();
 }
 
 if (isset($_POST['login'])) {
@@ -67,6 +67,7 @@ if (isset($_POST['login'])) {
                 </form>
             </div>
         </div>
+    </div>
 </body>
 
 </html>

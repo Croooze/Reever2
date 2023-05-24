@@ -1,33 +1,48 @@
 <?php
-// Configuration de la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "reever";
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
 
-// Connexion à la base de données
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "La connexion a échoué : " . $e->getMessage();
 }
 
-// Récupération des données du formulaire
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
-$email = $_POST['email'];
-$mdp = $_POST['mdp'];
-$bday = $_POST['bday'];
+if (isset($_POST['envoyer'])) {
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $email = $_POST['email'];
+    $mdp = $_POST['mdp'];
 
-// Insertion des données dans la base de données
-$sql = "INSERT INTO formulaire (nom, prenom, email, mdp, bday) VALUES ('$nom', '$prenom', '$email', '$mdp', '$bday')";
+    // Vérification de la correspondance du mot de passe
+    $mdpConfirme = $_POST['mdp_confirme'];
+  
 
-if ($conn->query($sql) === TRUE) {
-    echo "Les données ont été enregistrées avec succès.";
-} else {
-    echo "Erreur: " . $sql . "<br>" . $conn->error;
+    // Vérification si l'utilisateur existe déjà
+    $sql = "SELECT * FROM user WHERE email=:email";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+   
+
+    // Hashage du mot de passe
+    $hashedPassword = password_hash($mdp, PASSWORD_DEFAULT);
+
+    // Insertion des données dans la base de données
+    $sql = "INSERT INTO user (nom, prenom, email, mdp) VALUES (:nom, :prenom, :email, :mdp)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':nom', $nom);
+    $stmt->bindParam(':prenom', $prenom);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':mdp', $hashedPassword);
+    $stmt->execute();
+
+    // Redirection après l'insertion
+    header("Location: Accueil.php");
+    exit;
 }
-
-$conn->close();
 ?>
