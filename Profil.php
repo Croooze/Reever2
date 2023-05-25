@@ -62,10 +62,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="info">
             <?php if ($user) { ?>
-                <p><?php echo ($user['nom']); ?></p>
-                <p><?php echo ($user['prenom']); ?></p>
+                <p class="infoUser"><?php echo ($user['nom']); ?></p>
+                <p class="infoUser"><?php echo ($user['prenom']); ?></p>
             <?php } ?>
-            <p>Je suis jeune et pleine d'énergie</p>
+            <p><?php echo ($user['description']); ?></p>
         </div>
         <div class="detail">
             <a class="test" href="">Aperçu profil</a>

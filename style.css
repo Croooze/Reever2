@@ -310,12 +310,16 @@ nav{
 	justify-content: center;
 }
 
-.info b {
+.info p {
 	position: absolute;
 	top: 27%;
 	left: 50%;
 }
 
+.infoUser p {
+
+	text-align: right;
+}
 /****************/
 /*  PARAMETRES  */
 /****************/
