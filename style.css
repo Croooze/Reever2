@@ -449,6 +449,29 @@ nav{
 	height: 450px;
 }
 
+/*****************/
+/*     MODIFIER PROFIL      */
+/*****************/
 
+.trucgris {
+	position: absolute;
+	background-color: #ead4bb;
+	height: 85%;
+	width: 50%;
+	border-radius: 0 15% 15% 0;
+}
+
+.text {
+	padding: 200px;
+}
+
+textarea {
+	height: 200px;
+	width: 300px;
+}
+
+.Mbiographie {
+	margin-left: 200px;
+}
 
 

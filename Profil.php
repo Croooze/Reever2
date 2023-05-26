@@ -69,7 +69,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="detail">
             <a class="test" href="">Aperçu profil</a>
-            <a href="">Modifier</a>
+            <a href="Modification_profil.php">Modifier</a>
         </div>
     </div>
 </body>
