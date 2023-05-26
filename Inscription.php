@@ -49,13 +49,18 @@ if (isset($_POST['envoyer'])) {
         $stmt->bindParam(':mdp', $hashedPassword);
         $stmt->execute();
 
+        // Récupération de l'ID de l'utilisateur inséré
+        $userID = $conn->lastInsertId();
+
+        // Stockage de l'ID de l'utilisateur dans la session
+        $_SESSION['user_id'] = $userID;
+
         // Redirection après l'insertion
         header("Location: Accueil.php");
         exit;
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,15 +89,17 @@ if (isset($_POST['envoyer'])) {
                 <?php } ?>
                 <input type="text" id="nom" name="nom" placeholder="Nom" required>
                 <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
-                <input type="text" id="email" name="email" placeholder="Adresse mail" required>
+                <input type="text" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
-                <input type="password" id="mdp_confirme" name="mdp_confirme" placeholder="Confirmer le mot de passe" required>
-                <input type="submit" value="Inscription" name="envoyer">
+                <input type="password" id="mdp_confirme" name="mdp_confirme" placeholder="Confirmez le mot de passe" required>
+                <input type="submit" name="envoyer" value="S'inscrire">
                 <a href="Connexion.php">
                     <p class="compte">Déjà inscrit ? Se connecter</p>
                 </a>
             </form>
+            
         </div>
+        
     </div>
 </body>
 </html>

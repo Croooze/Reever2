@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reever</title>
-    <link rel='stylesheet' href='style.css'>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <?php
@@ -16,8 +16,8 @@ $username = 'root';
 $password = '';
 
 $dsn = "mysql:host=$host;dbname=$dbname";
-// récupérer tous les utilisateurs
-$sql = "SELECT * FROM event";
+// récupérer le dernier événement
+$sql = "SELECT * FROM event ORDER BY id_event DESC LIMIT 1";
 
 try {
     $pdo = new PDO($dsn, $username, $password);
@@ -31,6 +31,7 @@ try {
     echo $e->getMessage();
 }
 ?>
+
 <body>
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
@@ -43,13 +44,9 @@ try {
 
     <section class="evenement">
         <div class="content">
-            <p>
-                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                </p>
-                <p>
-                    <?php echo ($row['nom']); ?>
-                </p>
-                <?php endwhile; ?>
+            <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                <a href="liste.php" class="button"><?php echo $row['nom']; ?></a>
+            <?php endwhile; ?>
         </div>
     </section>
 

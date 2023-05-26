@@ -319,6 +319,7 @@ nav{
 .infoUser p {
 
 	text-align: right;
+	justify-content: center;
 }
 /****************/
 /*  PARAMETRES  */

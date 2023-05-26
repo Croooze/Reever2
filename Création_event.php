@@ -52,19 +52,20 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "la connexion a échoué: " . $e->getMessage();
+    echo "La connexion a échoué: " . $e->getMessage();
 }
 
 if (isset($_POST['nom'])) {
     $nom = $_POST['nom'];
 
-    $sql = ("INSERT INTO event(nom) VALUES (:nom)");
+    $sql = "INSERT INTO event(nom) VALUES (:nom)";
     $stmt = $conn->prepare($sql);
-
     $stmt->bindParam(':nom', $nom);
     $stmt->execute();
 
-    $url = "https://www.google.com/search?q=" . urlencode($nom);
+    $eventId = $conn->lastInsertId();
+
+    $url = "liste.php?id=" . $eventId;
     echo "<script>generateur('$url')</script>";
 }
 ?>
