@@ -45,7 +45,10 @@ try {
     <section class="evenement">
         <div class="content">
             <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                <a href="liste.php" class="button"><?php echo $row['nom']; ?></a>
+                <?php
+                $eventLink = "liste.php?nom=" . urlencode($row['nom']);
+                ?>
+                <a href="<?php echo $eventLink; ?>" class="button"><?php echo $row['nom']; ?></a>
             <?php endwhile; ?>
         </div>
     </section>

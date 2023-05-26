@@ -1,3 +1,36 @@
+<?php
+session_start();
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
+
+$errors = array(); // Variable pour stocker les erreurs
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    $errors[] = "La connexion a échoué : " . $e->getMessage();
+}
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
+    header("Location: connexion.php");
+    exit;
+}
+
+// Récupérer l'ID de l'utilisateur connecté
+$userId = $_SESSION['user_id'];
+
+// Effectuer la requête pour récupérer les événements de l'utilisateur connecté
+$sql = "SELECT * FROM event WHERE id_user = :user_id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':user_id', $userId);
+$stmt->execute();
+$evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,36 +38,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Liste Participants</title>
+    <title>Liste des événements</title>
 </head>
 
 <body>
-    <header>
-        <a href="Accueil.php" class="logo">REEVER</a>
-        <nav>
-            <a href="Notification.php">Notification</a>
-            <a href="Profil.php">Profil</a>
-            <a href="Paramètre.php">Paramètres</a>
-        </nav>
-    </header>
-
-    <div class="list">
-        <?php
-        // Vérifier si l'ID de l'événement est présent dans l'URL
-        if (isset($_GET['id'])) {
-            $eventId = $_GET['id'];
-
-            // Vérifier si le nom de l'événement est présent dans l'URL
-            if (isset($_GET['nom'])) {
-                $nom = $_GET['nom'];
-
-                // Afficher le titre avec le nom de l'événement suivi de "_liste_participants"
-                echo "<h1>" . htmlspecialchars($nom) . "_liste_participants</h1>";
-            }
-        }
-        ?>
-    </div>
+    <h1>Liste des événements</h1>
+    <table>
+        <tr>
+            <th>Titre</th>
+        </tr>
+        <?php foreach ($evenements as $evenement) { ?>
+            <tr>
+                <td><?php echo $evenement['nom']; ?></td>
+            </tr>
+        <?php } ?>
+    </table>
 </body>
 
 </html>

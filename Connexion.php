@@ -49,7 +49,7 @@ if (isset($_POST['login'])) {
 </head>
 <body>
     <div class="gauche">
-        <h1>REEVER</h1>
+<h1>REEVER</h1>
         <p>Le site de rencontre et de retrouvaille</p>
     </div>
     <div class="droite">
