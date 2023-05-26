@@ -18,7 +18,7 @@ if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 
     // Effectuez une requête pour récupérer les informations de l'utilisateur
-    $sql = "SELECT nom, prenom, description, photo FROM user WHERE id_user = :user_id";
+    $sql = "SELECT nom, prenom, description, photo, instagram FROM user WHERE id_user = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $userId);
     $stmt->execute();
@@ -29,6 +29,7 @@ if (isset($_SESSION['user_id'])) {
         $prenomUtilisateur = $user['prenom'];
         $descriptionUtilisateur = $user['description'];
         $photoUtilisateur = $user['photo'];
+        $instaUtilisateur = $user['instagram'];
     }
 }
 ?>
@@ -53,25 +54,27 @@ if (isset($_SESSION['user_id'])) {
         </nav>
     </header>
     <div class="container2">
-        <div class="centered-element">
-            <?php if ($user && $photoUtilisateur) { ?>
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($photoUtilisateur); ?>" alt="image profil">
-            <?php } else { ?>
-                <img src="img\3.png" alt="image profil">
-            <?php } ?>
-        </div>
-        <div class="info">
-            <?php if ($user) { ?>
-                <p class="infoUser"><?php echo ($user['nom']); ?></p>
-                <p class="infoUser"><?php echo ($user['prenom']); ?></p>
-            <?php } ?>
-            <p><?php echo ($user['description']); ?></p>
-        </div>
-        <div class="detail">
-            <a class="test" href="">Aperçu profil</a>
-            <a href="Modification_profil.php">Modifier</a>
+    <div class="centered-element">
+        <?php if ($user && $photoUtilisateur) { ?>
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoUtilisateur); ?>" alt="image profil">
+        <?php } else { ?>
+            <img src="img\3.png" alt="image profil">
+        <?php } ?>
+        <div class="name">
+        <p><?php echo ($user['prenom']); ?></p>
+            <p><?php echo ($user['nom']); ?></p>
         </div>
     </div>
+    <div class="info">
+        <p class="description"><?php echo ($user['description']); ?></p>
+        <p class="instagram">@<?php echo ($user['instagram']); ?></p>
+        <div class="detail">
+        <a href="">Aperçu profil</a>
+        <a href="Modification_profil.php">Modifier</a>
+    </div>
+    </div>
+    
+</div>
 </body>
 
 </html>

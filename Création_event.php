@@ -42,45 +42,47 @@
         }
     </script>
 
-</body>
-<?php
-session_start();
-$host = 'localhost';
-$dbname = 'reever';
-$username = 'root';
-$password = '';
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "La connexion a échoué: " . $e->getMessage();
-}
+    <?php
+    session_start();
+    $host = 'localhost';
+    $dbname = 'reever';
+    $username = 'root';
+    $password = '';
 
-if (isset($_POST['nom'])) {
-    $nom = $_POST['nom'];
-
-    // Vérifier si l'utilisateur est connecté
-    if (isset($_SESSION['user_id'])) {
-        $userId = $_SESSION['user_id'];
-
-        $sql = "INSERT INTO event(nom) VALUES (:nom)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->execute();
-
-        $eventId = $conn->lastInsertId();
-
-        // Enregistrer l'événement dans la liste de l'utilisateur connecté
-        $sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':event_id', $eventId);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->execute();
-
-        $url = "http://localhost/reever2/liste.php?nom=" . urlencode($nom);
-        echo "<script>generateur('$url')</script>";
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        echo "La connexion a échoué: " . $e->getMessage();
     }
-}
-?>
+
+    if (isset($_POST['nom'])) {
+        $nom = $_POST['nom'];
+
+        // Vérifier si l'utilisateur est connecté
+        if (isset($_SESSION['user_id'])) {
+            $userId = $_SESSION['user_id'];
+
+            $sql = "INSERT INTO event(nom) VALUES (:nom)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->execute();
+
+            $eventId = $conn->lastInsertId();
+
+            // Enregistrer l'événement dans la liste de l'utilisateur connecté
+            $sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':event_id', $eventId);
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->execute();
+
+            $url = "http://localhost/reever2/liste.php?nom=" . urlencode($nom);
+            echo "<script>generateur('$url')</script>";
+        }
+    }
+    ?>
+
+</body>
 
 </html>
