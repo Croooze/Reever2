@@ -77,7 +77,7 @@ if (isset($_POST['nom'])) {
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
 
-        $url = "liste.php?nom=" . urlencode($nom);
+        $url = "http://localhost/reever2/liste.php?nom=" . urlencode($nom);
         echo "<script>generateur('$url')</script>";
     }
 }
