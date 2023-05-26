@@ -8,9 +8,6 @@
     <title>Document</title>
 </head>
 
-
-
-
 <body>
 <header>
         <a href="Accueil.php" class="logo">REEVER</a>
@@ -48,7 +45,7 @@ if ($result->num_rows > 0) {
 
     // Parcourir les résultats et ajouter les données à la variable
     while ($row = $result->fetch_assoc()) {
-        $data .= $row["description"] . " " . $row["description"] . "\n";
+        $data .= $row["description"] . " " . "\n";
     }
 
     // Afficher les données dans le textarea
@@ -60,7 +57,17 @@ if ($result->num_rows > 0) {
 // Fermer la connexion à la base de données
 $conn->close();
 ?>
-    
+<?php
+if (isset($_POST['envoyer'])) {
+    $description = $_POST['description'];
+
+        // Redirection après l'insertion
+        header("Location: Accueil.php");
+        exit;
+    }
+?>
+
+<input type="submit" name="envoyer" value="modifier">
     </div>
    </div>
 </body>

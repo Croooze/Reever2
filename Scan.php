@@ -4,52 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <title>Scan QR Code</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js%22%3E</script>
-    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.18.1/zxing.umd.min.js%22%3E</script>
 </head>
 
 <body>
+<header>
+        <a href="Accueil.php" class="logo">REEVER</a>
+        <nav>
+            <a href="Notification.php">Notification</a>
+            <a href="Profil.php">Profil</a>
+            <a href="Paramètre.php">Paramètres</a>
+        </nav>
+    </header>
+
     <h1>Scan QR Code</h1>
 
-    <video id="video" width="100%" height="auto" autoplay></video>
-    <canvas id="canvas" style="display: none;"></canvas>
-
+    <video id="videoElement" autoplay></video>
+    <button onclick="startCamera()">Activer la caméra</button>
     <script>
-        $(document).ready(function () {
-            var video = document.getElementById('video');
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
+        // Obtenez la référence à l'élément vidéo
+var videoElement = document.getElementById('videoElement');
 
-            // Accéder à la caméra et afficher le flux vidéo
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function (error) {
-                    console.log('Erreur d'accès à la caméra: ', error);
-                });
+// Obtenez la référence au conteneur des résultats
+var qrResult = document.getElementById('qrResult');
 
-            // Décoder le QR code à partir de l'image du canevas
-            function decodeQRCode() {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+// Créez une instance du scanner Instascan
+var scanner = new Instascan.Scanner({ video: videoElement });
 
-                var codeReader = new ZXing.BrowserQRCodeReader();
-                codeReader.decodeFromImageElement(canvas)
-                    .then(function (result) {
-                        alert("QR code scanné : " + result.text);
-                    })
-                    .catch(function (error) {
-                        console.log('Erreur de décodage du QR code: ', error);
-                    });
+// Ajoutez un écouteur d'événement lorsqu'un QR code est détecté
+scanner.addListener('scan', function (content) {
+    // Affichez le contenu du QR code dans le conteneur des résultats
+    qrResult.textContent = content;
+});
 
-                requestAnimationFrame(decodeQRCode);
-            }
-// Démarrer le décodage du QR code
-            requestAnimationFrame(decodeQRCode);
-        });
+// Démarrez le scanner de QR code
+Instascan.Camera.getCameras()
+    .then(function (cameras) {
+        if (cameras.length > 0) {
+            // Utilisez la caméra arrière par défaut
+            scanner.start(cameras[0]);
+        } else {
+            console.error('Aucune caméra disponible.');
+        }
+    })
+    .catch(function (error) {
+        console.error('Erreur lors de la récupération des caméras :', error);
+    });
+
     </script>
+
+
 </body>
 
 </html>
