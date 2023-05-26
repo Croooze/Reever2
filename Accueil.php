@@ -10,23 +10,29 @@
 </head>
 
 <?php
+session_start();
 $host = 'localhost';
 $dbname = 'reever';
 $username = 'root';
 $password = '';
 
 $dsn = "mysql:host=$host;dbname=$dbname";
-// récupérer le dernier événement
-$sql = "SELECT * FROM event ORDER BY id_event DESC LIMIT 1";
 
 try {
     $pdo = new PDO($dsn, $username, $password);
-    $stmt = $pdo->query($sql);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if ($stmt === false) {
-        die("Erreur");
+    // Vérifier si l'utilisateur est connecté
+    if (isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+
+        // Récupérer le dernier événement créé par l'utilisateur connecté
+        $sql = "SELECT e.nom FROM event e INNER JOIN liste l ON e.id_event = l.id_event WHERE l.id_user = :user_id ORDER BY e.id_event DESC LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+        $event = $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
@@ -44,12 +50,14 @@ try {
 
     <section class="evenement">
         <div class="content">
-            <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+            <?php if ($event) { ?>
                 <?php
-                $eventLink = "liste.php?nom=" . urlencode($row['nom']);
+                $eventLink = "liste.php?nom=" . urlencode($event['nom']);
                 ?>
-                <a href="<?php echo $eventLink; ?>" class="button"><?php echo $row['nom']; ?></a>
-            <?php endwhile; ?>
+<a href="<?php echo $eventLink; ?>" class="button"><?php echo $event['nom']; ?></a>
+            <?php } else { ?>
+                <p>Scannez ou Créez un événement pour voir la liste ici</p>
+            <?php } ?>
         </div>
     </section>
 

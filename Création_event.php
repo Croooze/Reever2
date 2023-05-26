@@ -43,11 +43,11 @@
 
 </body>
 <?php
+session_start();
 $host = 'localhost';
 $dbname = 'reever';
 $username = 'root';
 $password = '';
-
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -58,15 +58,27 @@ try {
 if (isset($_POST['nom'])) {
     $nom = $_POST['nom'];
 
-    $sql = "INSERT INTO event(nom) VALUES (:nom)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':nom', $nom);
-    $stmt->execute();
+    // Vérifier si l'utilisateur est connecté
+    if (isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
 
-    $eventId = $conn->lastInsertId();
+        $sql = "INSERT INTO event(nom) VALUES (:nom)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->execute();
 
-    $url = "liste.php?id=" . $eventId;
-    echo "<script>generateur('$url')</script>";
+        $eventId = $conn->lastInsertId();
+
+        // Enregistrer l'événement dans la liste de l'utilisateur connecté
+        $sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':event_id', $eventId);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        $url = "liste.php?nom=" . urlencode($nom);
+        echo "<script>generateur('$url')</script>";
+    }
 }
 ?>
 </html>
