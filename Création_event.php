@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="qrcode.min.js"></script>
     <title>Création événement</title>
 </head>
 
@@ -30,7 +29,15 @@
             </form>
         </div>
 
-        <div class="qrcode" id="qrcode"></div>
+        <div class="qrcode" id="qrcode">
+            <?php
+            if (isset($_POST['submit'])) {
+                $nom = $_POST['nom'];
+                $url = "http://localhost/reever/liste.php?nom=" . urlencode($nom);
+                echo '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '">';
+            }
+            ?>
+        </div>
     </section>
 
     <?php
@@ -48,9 +55,11 @@
     }
 
     if (isset($_POST['submit'])) {
+        $nom = $_POST['nom'];
+
+        // Vérifier si l'utilisateur est connecté
         if (isset($_SESSION['user_id'])) {
             $userId = $_SESSION['user_id'];
-            $nom = $_POST['nom'];
 
             $sql = "INSERT INTO event(nom) VALUES (:nom)";
             $stmt = $conn->prepare($sql);
@@ -59,38 +68,17 @@
 
             $eventId = $conn->lastInsertId();
 
+            // Enregistrer l'événement dans la liste de l'utilisateur connecté
             $sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':event_id', $eventId);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();
 
-            $url = "http://localhost/reever2/liste.php?nom=" . urlencode($nom);
-            echo "<script>generateur('$url');</script>";
+            echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
         }
-    } elseif (isset($_GET['nom'])) {
-        echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
     }
     ?>
-
-    <script type="text/javascript">
-        function generateur(qr_texte) {
-            var qrcode = document.querySelector("#qrcode");
-            qrcode.style.display = "flex";
-            qrcode.innerHTML = "";
-            new QRCode(qrcode, qr_texte);
-        }
-
-        document.querySelector("button[name='submit']").addEventListener("click", function (event) {
-            event.preventDefault();
-            var nom = document.querySelector("input[name='nom']").value;
-            if (nom.trim() !== "") {
-                document.querySelector("form").submit();
-            } else {
-                alert("Veuillez saisir un nom d'événement");
-            }
-        });
-    </script>
 
 </body>
 
