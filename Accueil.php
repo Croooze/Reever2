@@ -101,7 +101,7 @@ try {
             if (nom !== "") {
                 var qrcode = document.querySelector("#qrcode");
                 qrcode.style.display = "none";
-                var url = "http://localhost/reever2/liste.php?nom=" + encodeURIComponent(nom);
+                var url = "http://localhost/reever/liste.php?nom=" + encodeURIComponent(nom);
                 generateur(url);
                 if (document.querySelector(".center")) {
                     document.querySelector(".center").style.display = "block";
