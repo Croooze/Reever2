@@ -95,13 +95,13 @@ try {
             new QRCode(qrcode, qr_texte);
         }
 
-        document.querySelector("button[type='submit']").addEventListener("click", function (event) {
+        document.querySelector("button[type='submit']").addEventListener("click", function  (event) {
             event.preventDefault();
             var nom = document.querySelector("input[name='nom']").value;
             if (nom !== "") {
                 var qrcode = document.querySelector("#qrcode");
                 qrcode.style.display = "none";
-                var url = "http://localhost/reever/liste.php?nom=" + encodeURIComponent(nom);
+                var url = "/reever/liste.php?nom=" + encodeURIComponent(nom);
                 generateur(url);
                 if (document.querySelector(".center")) {
                     document.querySelector(".center").style.display = "block";
