@@ -95,7 +95,7 @@ try {
             new QRCode(qrcode, qr_texte);
         }
 
-        document.querySelector("button[type='submit']").addEventListener("click", function(event) {
+        document.querySelector("button[type='submit']").addEventListener("click", function (event) {
             event.preventDefault();
             var nom = document.querySelector("input[name='nom']").value;
             if (nom !== "") {

@@ -33,8 +33,8 @@
             <?php
             if (isset($_POST['submit'])) {
                 $nom = $_POST['nom'];
-                $url = "http://localhost/reever/liste.php?nom=" . urlencode($nom);
-                echo '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '">';
+                $url = "http://localhost/reever/participer.php?nom=" . urlencode($nom);
+                echo '<a href="participer.php"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '"></a>';
             }
             ?>
         </div>
