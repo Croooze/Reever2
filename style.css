@@ -125,117 +125,144 @@ input[type="date"] {
 /*  PAGE ACCUEIL  */
 /******************/
 
-header {	
-	font-size: 33px;
-	outline: none;
-	color: white;
-	word-spacing: 50px;
-	background-color: #FAB564;
-	width: 100%;
-	padding-bottom: 2%;
-	padding-top: 2%;
+/* CSS pour la page d'accueil */
+
+header {
+    font-size: 33px;
+    outline: none;
+    color: white;
+    word-spacing: 50px;
+    background-color: #FAB564;
+    width: 100%;
+    padding-bottom: 2%;
+    padding-top: 2%;
 }
 
-.logo{
-	text-align: left;
-	font-size: 40px;
-	margin-left: 2%;
-}	
-
-header a:link{
-	color:white;
-	text-decoration:none;
+.logo {
+    text-align: left;
+    font-size: 40px;
+    margin-left: 2%;
 }
 
-header a:visited{
-	color:white;
-	text-decoration:none;
+header a:link {
+    color: white;
+    text-decoration: none;
 }
 
-header a:hover{
-	color:whitesmoke;
-	text-decoration:none;
+header a:visited {
+    color: white;
+    text-decoration: none;
 }
 
-header a:active{
-	color:whitesmoke;
-	text-decoration:none;
+header a:hover {
+    color: whitesmoke;
+    text-decoration: none;
 }
 
-nav{
-	text-align: right;
-	width: 60%;
-	margin-left: 35%;
-	margin-top: -3%;
+header a:active {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+nav {
+    text-align: right;
+    width: 60%;
+    margin-left: 35%;
+    margin-top: -3%;
 }
 
 .evenement {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.event-link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
 }
 
 .content {
-	margin: 0;
-	padding: 0;
-	width: 80%;
-	height: 300px;
-	background-color: white;
-	border: 1px solid black;
-	margin-top: 3%;
-	border-radius: 30px;
+    margin-top: 0;
+    padding: 0;
+    width: 600px;
+    min-height: 250px;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 3%;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative; /* Ajout de la propriété position */
 }
 
-.content p{
-	color: black;
+.content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
-/*img{
-	max-width: 100%;
-	max-height: 100%;
-}*/
+.event-name {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    text-transform: capitalize;
+}
+
+.event-name.with-photo {
+    color: white;
+}
+
+.event-name.without-photo {
+    color: black;
+}
 
 .content p {
-	text-align: left;
-	margin-top: 2%;
-	margin-left: 15px;
+    color: black;
+    text-align: left;
+    margin-top: 2%;
+    margin-left: 15px;
 }
-
 
 .card {
-	width: 60%;
-	height: 150px;
-	margin-top: 3%;
-	display: flex;
-	justify-content: space-between;
-	margin-left: 20%;
+    width: 60%;
+    height: 150px;
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20%;
 }
 
-.left{
-	width: 300px;
-	background-color: #d9d9d9;
-	height: 100%;
-	border-radius: 30px;
-	border: 1px solid black;
+.left {
+    width: 300px;
+    background-color: #d9d9d9;
+    height: 100%;
+    border-radius: 30px;
+    border: 1px solid black;
 }
 
-.right{
-	width: 300px;
-	background-color: #d9d9d9;
-	height: 100%;
-	border-radius: 30px;
-	border: 1px solid black;
+.right {
+    width: 300px;
+    background-color: #d9d9d9;
+    height: 100%;
+    border-radius: 30px;
+    border: 1px solid black;
 }
 
-.card a{
-	color: white;
-	text-align: center;
-	align-items: center;
-	font-size: 30px;
-	text-decoration: none;
-	display: flex;
-	justify-content: center;
-	margin-top: 19%;
+.card a {
+    color: white;
+    text-align: center;
+    align-items: center;
+    font-size: 30px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 19%;
 }
+
+
 
 /******************/
 /*  PAGE PROFIL   */
@@ -371,72 +398,104 @@ nav{
 /*CREATION EVENT */
 /*****************/
 
-.donnée{
-	width: 40%;
-	height: 80%;
+/* Styles pour le formulaire de création d'événement */
+.donnée {
+    width: 40%;
+    height: 80%;
     margin-top: 8%;
     text-align: center;
-	color: black;
+    color: black;
 }
 
 .donnée input {
-	padding-top: 15px;
-	width: 60%;
-	margin-bottom: 20px;
-	margin: 20px auto;
-	display: block;
+    padding-top: 15px;
+    width: 60%;
+    margin-bottom: 20px;
+    margin: 20px auto;
+    display: block;
 }
 
-.donnée button{
-	border: none;
-	width: 60%;
-	outline: none;
-	height: 40px;
-	background: #FAB564;
-	color: white;
-	font-size: 19px;
-	border-radius: 25px;
-	padding: 1px 20px;
-	margin: 10px auto;
+.donnée button {
+    border: none;
+    width: 60%;
+    outline: none;
+    height: 40px;
+    background: #FAB564;
+    color: white;
+    font-size: 19px;
+    border-radius: 25px;
+    padding: 1px 20px;
+    margin: 10px auto;
 }
 
 .donnée input[type="text"] {
-	border: none;
-	border-bottom: 1px solid black;
-	background: transparent;
-	outline: none;
-	height: 40px;
-	color: black;
-	font-size: 17px;
+    border: none;
+    border-bottom: 1px solid black;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: black;
+    font-size: 17px;
 }
 
 .donnée button[type="submit"]:hover {
-	cursor: pointer;
-	background: #fca950;
+    cursor: pointer;
+    background: #fca950;
 }
 
+/* Styles pour la zone de QR code */
 .zone {
-	width: 70%;
-	height: 50%;
-	margin-top: 3%;
-	display: flex;
-	justify-content: space-between;
-	margin-left: 15%;
+    width: 70%;
+    height: 50%;
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 15%;
 }
 
-.qrcode{
-	width: 50%;
-	margin-top: 6%;
-	display: flex;
-	justify-content: center;
-	border-left: 1px solid black;
+.qrcode {
+    width: 50%;
+    margin-top: 6%;
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid black;
 }
 
-.qrcode p{
-	color:black;
-	justify-content: center;
-	text-align: center;
+.qrcode p {
+    color: black;
+    justify-content: center;
+    text-align: center;
 }
+
+/* Style pour le bouton "Personnaliser Événement" */
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.custom-btn {
+    border: none;
+    width: 30%;
+    outline: none;
+    height: 40px;
+    background: #FAB564;
+    color: white;
+    font-size: 19px;
+    border-radius: 25px;
+    padding: 1px 20px;
+    margin: 10px auto;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-btn:hover {
+    cursor: pointer;
+    background: #fca950;
+}
+
 
 /*****************/
 /*     LIST      */

@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="qrcode.min.js"></script>
     <title>Création événement</title>
 </head>
 
@@ -26,21 +25,20 @@
             <form action="" method="POST">
                 <h1>ÉVÉNEMENT</h1>
                 <input type="text" name="nom" placeholder="Nom de l'événement">
-                <button type="submit">Générer le QR code</button>
+                <button type="submit" name="submit">Générer le QR code</button>
             </form>
         </div>
 
-        <div class="qrcode" id="qrcode"></div>
+        <div class="qrcode" id="qrcode">
+            <?php
+            if (isset($_POST['submit'])) {
+                $nom = $_POST['nom'];
+                $url = "http://localhost/reever/liste.php?nom=" . urlencode($nom);
+                echo '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '">';
+            }
+            ?>
+        </div>
     </section>
-
-    <script src="qrcode.min.js"></script>
-    <script type="text/javascript">
-        function generateur(qr_texte) {
-            var qrcode = document.querySelector("#qrcode");
-            qrcode.style.display = "flex";
-            new QRCode(qrcode, qr_texte);
-        }
-    </script>
 
     <?php
     session_start();
@@ -51,12 +49,12 @@
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
         echo "La connexion a échoué: " . $e->getMessage();
     }
 
-    if (isset($_POST['nom'])) {
+    if (isset($_POST['submit'])) {
         $nom = $_POST['nom'];
 
         // Vérifier si l'utilisateur est connecté
@@ -77,8 +75,7 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();
 
-            $url = "http://localhost/reever2/liste.php?nom=" . urlencode($nom);
-            echo "<script>generateur('$url')</script>";
+            echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
         }
     }
     ?>
