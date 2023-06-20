@@ -34,6 +34,22 @@ try {
             }
         }
 
+        // Récupérer les autres données du formulaire
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $description = $_POST['description'];
+        $instagram = $_POST['instagram'];
+
+        // Mettre à jour les données de profil de l'utilisateur
+        $sql = "UPDATE user SET nom = :nom, prenom = :prenom, description = :description, instagram = :instagram WHERE id_user = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':instagram', $instagram);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+
         // Redirection vers la page de profil
         header("Location: Profil.php");
         exit;
@@ -47,4 +63,3 @@ try {
     echo "La connexion a échoué: " . $e->getMessage();
 }
 ?>
-
