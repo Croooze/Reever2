@@ -25,7 +25,7 @@
     </div>
 
     <div class="mention">
-        <a href="">Mentions légales | copyright 2023 reever</a>
+        <a href="Mentions_legales.php">Mentions légales | copyright 2023 reever</a>
     </div>
 </body>
 
