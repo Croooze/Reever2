@@ -79,8 +79,7 @@
                 echo "Utilisateur non connecté";
             }
             ?>
-
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="upload_photo.php" method="POST" enctype="multipart/form-data">
                 <label for="nom">Nom:</label>
                 <input type="text" name="nom" value="<?php echo $nom; ?>"><br>
 

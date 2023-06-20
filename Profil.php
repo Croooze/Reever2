@@ -61,15 +61,13 @@ if (isset($_SESSION['user_id'])) {
             <img src="img\3.png" alt="image profil">
         <?php } ?>
         <div class="name">
-        <p><?php echo ($user['prenom']); ?></p>
-            <p><?php echo ($user['nom']); ?></p>
+        <p><?php echo ($user['prenom'] . ' ' . $user['nom']); ?></p>
         </div>
     </div>
     <div class="info">
         <p class="description"><?php echo ($user['description']); ?></p>
         <p class="instagram">@<?php echo ($user['instagram']); ?></p>
         <div class="detail">
-        <a href="">Aperçu profil</a>
         <a href="Modification_profil.php">Modifier</a>
     </div>
     </div>
