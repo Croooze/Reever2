@@ -50,7 +50,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         </nav>
     </header>
 
-    
+
     <?php
     // Vérifier si le nom de l'événement est présent dans les paramètres de l'URL
     if (isset($_GET['nom'])) {
@@ -72,7 +72,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($participants as $participant) {
-            echo '<li>' . $participant['nom'] . ' ' . $participant['prenom'] . '</li>';
+            echo '<li><a href="Profil_template.php?nom=' . urlencode($participant['nom']) . '">' . $participant['nom'] . ' ' . $participant['prenom'] . '</a></li>';
         }
         ?>
     </ul>

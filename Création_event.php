@@ -1,3 +1,55 @@
+<?php
+session_start();
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "La connexion a échoué: " . $e->getMessage();
+}
+
+$errors = array(); // Variable pour stocker les erreurs
+
+if (isset($_POST['submit'])) {
+    $nom = $_POST['nom'];
+
+    // Vérifier si l'utilisateur est connecté
+    if (isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+
+        // Vérifier si l'événement avec le même nom existe déjà
+        $sql = "SELECT id_event FROM event WHERE nom = :nom";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            // Ajouter un message d'erreur à la liste des erreurs
+            $errors[] = 'Ce nom d\'événement est indisponible, veuillez en saisir un autre.';
+        } else {
+            // Insérer l'événement dans la base de données
+            $sql = "INSERT INTO event(nom) VALUES (:nom)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->execute();
+
+            $eventId = $conn->lastInsertId();
+
+            // Enregistrer l'événement dans la liste de l'utilisateur connecté
+            /*$sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':event_id', $eventId);
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->execute();*/
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,53 +83,25 @@
 
         <div class="qrcode" id="qrcode">
             <?php
-            if (isset($_POST['submit'])) {
+            if (isset($_POST['submit']) && empty($errors)) {
                 $nom = $_POST['nom'];
-                $url = "http://". $_SERVER['HTTP_HOST'] ."/reever/participer.php?nom=" . urlencode($nom);
-                echo '<a href="/reever/participer.php?nom=' . urlencode($nom).'"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '"></a>';
+                $url = "http://" . $_SERVER['HTTP_HOST'] . "/reever/participer.php?nom=" . urlencode($nom);
+                echo '<a href="/reever/participer.php?nom=' . urlencode($nom) . '"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '"></a>';
             }
             ?>
         </div>
     </section>
 
     <?php
-    session_start();
-    $host = 'localhost';
-    $dbname = 'reever';
-    $username = 'root';
-    $password = '';
-
-    try {
-        $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        echo "La connexion a échoué: " . $e->getMessage();
-    }
-
-    if (isset($_POST['submit'])) {
-        $nom = $_POST['nom'];
-
-        // Vérifier si l'utilisateur est connecté
-        if (isset($_SESSION['user_id'])) {
-            $userId = $_SESSION['user_id'];
-
-            $sql = "INSERT INTO event(nom) VALUES (:nom)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nom', $nom);
-            $stmt->execute();
-
-            $eventId = $conn->lastInsertId();
-
-            // Enregistrer l'événement dans la liste de l'utilisateur connecté
-            /*$sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':event_id', $eventId);
-            $stmt->bindParam(':user_id', $userId);
-            $stmt->execute();*/
-
-            echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
+    // Afficher les erreurs
+    if (!empty($errors)) {
+        echo '<div class="error">';
+        foreach ($errors as $error) {
+            echo '<p>' . $error . '</p>';
         }
+        echo '</div>';
     }
+    echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
     ?>
 
 </body>
