@@ -1,42 +1,32 @@
 <?php
+session_start();
 $host = 'localhost';
 $dbname = 'reever';
 $username = 'root';
 $password = '';
 
+$errors = array(); // Variable pour stocker les erreurs
+
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "La connexion a échoué: " . $e->getMessage();
+    $errors[] = "La connexion a échoué : " . $e->getMessage();
 }
 
-// Vérifier si le paramètre "nom" est présent dans l'URL
-if (isset($_GET['nom'])) {
-    $nom = $_GET['nom'];
-
-    // Récupérer l'événement correspondant au nom spécifié
-    $sql = "SELECT * FROM event WHERE nom = :nom";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':nom', $nom);
-    $stmt->execute();
-    $event = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($event) {
-        $eventId = $event['id_event'];
-
-        // Récupérer la liste des utilisateurs liés à l'événement
-        $sql = "SELECT user.* FROM user INNER JOIN liste ON user.id_user = liste.id_user WHERE liste.id_event = :event_id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':event_id', $eventId);
-        $stmt->execute();
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        echo "Événement non trouvé";
-    }
-} else {
-    echo "Paramètre 'nom' manquant dans l'URL";
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
+    header("Location: Connexion.php");
+    exit;
 }
+
+// Récupérer les informations de l'utilisateur connecté
+$sql = "SELECT * FROM user WHERE id_user = :userId";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':userId', $_SESSION['user_id']);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -46,10 +36,12 @@ if (isset($_GET['nom'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste de l'événement</title>
+    <title>Reever - Liste des participants</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<header>
+
+<body>
+    <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
             <a href="Notification.php">Notification</a>
@@ -58,18 +50,32 @@ if (isset($_GET['nom'])) {
         </nav>
     </header>
 
-<body>
-    <h1>Liste des participants de l'événement : <?php echo $nom; ?></h1>
+    
+    <?php
+    // Vérifier si le nom de l'événement est présent dans les paramètres de l'URL
+    if (isset($_GET['nom'])) {
+        $nomEvenement = $_GET['nom'];
+        echo "<h1>Liste des participants à l'événement : " . $nomEvenement . "</h1>";
+    } else {
+        echo '<p>Événement : [Nom de l\'événement non spécifié]</p>';
+    }
+    ?>
 
-    <?php if (isset($users) && count($users) > 0) : ?>
-        <ul>
-            <?php foreach ($users as $user) : ?>
-                <li><?php echo $user['nom'] . ' ' . $user['prenom']; ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else : ?>
-        <p>Aucun utilisateur inscrit à cet événement.</p>
-    <?php endif; ?>
+    <h2>Participants :</h2>
+    <ul>
+        <?php
+        // Récupérer la liste des participants
+        $sql = "SELECT u.nom, u.prenom FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nomEvenement', $_GET['nom']);
+        $stmt->execute();
+        $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($participants as $participant) {
+            echo '<li>' . $participant['nom'] . ' ' . $participant['prenom'] . '</li>';
+        }
+        ?>
+    </ul>
 </body>
 
 </html>

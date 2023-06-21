@@ -69,11 +69,11 @@
             $eventId = $conn->lastInsertId();
 
             // Enregistrer l'événement dans la liste de l'utilisateur connecté
-            $sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
+            /*$sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':event_id', $eventId);
             $stmt->bindParam(':user_id', $userId);
-            $stmt->execute();
+            $stmt->execute();*/
 
             echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
         }
