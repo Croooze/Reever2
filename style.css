@@ -578,3 +578,35 @@ nav {
     background-color: #fd9a30;
   }
   
+
+
+  .lemon {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 auto;
+    top: 60%;
+    width: 30%;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.lemon ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.lemon li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.lemon li:last-child {
+    border-bottom: none;
+}
+
+.lemon li a {
+    text-decoration: none;
+    color: #333;
+}

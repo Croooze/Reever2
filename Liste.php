@@ -60,22 +60,22 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         echo '<p>Événement : [Nom de l\'événement non spécifié]</p>';
     }
     ?>
+    <div class="lemon">
+        <ul>
+            <?php
+            // Récupérer la liste des participants distincts
+            $sql = "SELECT DISTINCT u.nom, u.prenom FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nomEvenement', $_GET['nom']);
+            $stmt->execute();
+            $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    <h2>Participants :</h2>
-    <ul>
-        <?php
-        // Récupérer la liste des participants
-        $sql = "SELECT u.nom, u.prenom FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':nomEvenement', $_GET['nom']);
-        $stmt->execute();
-        $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($participants as $participant) {
-            echo '<li><a href="Profil_template.php?nom=' . urlencode($participant['nom']) . '">' . $participant['nom'] . ' ' . $participant['prenom'] . '</a></li>';
-        }
-        ?>
-    </ul>
+            foreach ($participants as $participant) {
+                echo '<li><a href="Profil_template.php?nom=' . urlencode($participant['nom']) . '">' . $participant['nom'] . ' ' . $participant['prenom'] . '</a></li>';
+            }
+            ?>
+        </ul>
+    </div>
 </body>
 
 </html>
