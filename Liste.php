@@ -53,11 +53,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
 
 
-    <?php
+    <?php 
     // Vérifier si le nom de l'événement est présent dans les paramètres de l'URL
     if (isset($_GET['nom'])) {
         $nomEvenement = $_GET['nom'];
-        echo "<h1>Liste des participants à l'événement : " . $nomEvenement . "</h1>";
+        echo '<h1 style="color: #fff;">Liste des participants à l\'événement : ' . $nomEvenement . '</h1>';
+
     } else {
         echo '<p>Événement : [Nom de l\'événement non spécifié]</p>';
     }
