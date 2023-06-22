@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
             <?php if ($user && $photoUtilisateur) { ?>
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($photoUtilisateur); ?>" alt="image profil">
             <?php } else { ?>
-                <img src="img\3.png" alt="image profil">
+                <img src="img\default.png" alt="image profil">
             <?php } ?>
             <div class="name">
                 <p><?php echo ($user['prenom'] . ' ' . $user['nom']); ?></p>
