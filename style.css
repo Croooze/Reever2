@@ -599,8 +599,8 @@ nav {
     margin: 0 auto;
     top: 60%;
     width: 30%;
-    max-height: 300px;
     overflow-y: auto;
+    max-height: 450px;
 }
 
 .lemon ul {
