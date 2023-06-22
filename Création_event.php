@@ -101,7 +101,6 @@ if (isset($_POST['submit'])) {
         }
         echo '</div>';
     }
-    echo '<div class="center"><a href="personnalisation.php" class="custom-btn">Personnaliser Événement</a></div>';
     ?>
 
 </body>

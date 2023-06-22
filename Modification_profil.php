@@ -12,7 +12,6 @@
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-            <a href="Notification.php">Notification</a>
             <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
         </nav>
