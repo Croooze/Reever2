@@ -272,7 +272,6 @@ nav {
 
 .container2 {
     width: 500px;
-    height: 400px;
     border: 1px black solid;
     border-radius: 10%;
     background-color: #FAB564;
@@ -320,16 +319,28 @@ nav {
     margin-bottom: 10px;
 }
 
-.instagram {
-    padding-top: 10%;
-    font-style: italic;
+.instagram a {
+    padding-top: 20%;
+    text-decoration: none; /* Supprime le soulignement du lien */
     color: #666;
 }
 
+.instagram a:hover {
+    color: #242424;
+}
+
+
+
 .description {
     margin-top: 5%;
-    overflow-wrap: break-word; /* Ajout de cette propriété */
+    max-width: 65%; /* Assurez-vous que la description ne dépasse pas la largeur de la div */
+    
 }
+
+.description p {
+    text-align: center;
+}
+
 
 .detail {
     position: relative;
@@ -609,4 +620,48 @@ nav {
 .lemon li a {
     text-decoration: none;
     color: #333;
+}
+
+.btn-retour {
+    text-decoration: none;
+    color: #333;
+    margin-left: 47%;
+    padding-top: 20px;
+    display: block;
+    height: 40px; /* Ajustez la hauteur selon vos besoins */
+
+}
+.btn-retour-profil {
+    text-decoration: none;
+    color: #333;
+    display: block;
+
+}
+
+
+
+/*****************/
+/*     SUPPRIMER COMPTE     */
+/*****************/
+
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.user-info {
+    margin-bottom: 10px;
+}
+
+.delete-btn {
+    padding: 10px 20px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #d00;
 }

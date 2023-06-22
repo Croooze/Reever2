@@ -50,6 +50,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         </nav>
     </header>
 
+    
+
 
     <?php
     // Vérifier si le nom de l'événement est présent dans les paramètres de l'URL
@@ -76,6 +78,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             ?>
         </ul>
     </div>
+    <a href="Accueil.php" class="btn-retour"><-Retour</a>
 </body>
 
 </html>

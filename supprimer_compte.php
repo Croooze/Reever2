@@ -17,8 +17,24 @@ try {
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 
+    if (isset($_POST['supprimer'])) {
+        // Effectuer une requête pour supprimer l'utilisateur de la base de données
+        $sql = "DELETE FROM user WHERE id_user = :userId";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+
+        // Déconnecter l'utilisateur
+        session_unset();
+        session_destroy();
+
+        // Rediriger vers la page de connexion
+        header("Location: Connexion.php");
+        exit();
+    }
+
     // Effectuez une requête pour récupérer les informations de l'utilisateur
-    $sql = "SELECT nom, prenom, description, photo, instagram FROM user WHERE id_user = :user_id";
+    $sql = "SELECT nom, prenom FROM user WHERE id_user = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $userId);
     $stmt->execute();
@@ -27,12 +43,12 @@ if (isset($_SESSION['user_id'])) {
     if ($user) {
         $nomUtilisateur = $user['nom'];
         $prenomUtilisateur = $user['prenom'];
-        $descriptionUtilisateur = $user['description'];
-        $photoUtilisateur = $user['photo'];
-        $instaUtilisateur = $user['instagram'];
     }
+} else {
+    // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+    header("Location: Connexion.php");
+    exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +59,7 @@ if (isset($_SESSION['user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Profil</title>
+    <title>Supprimer le compte</title>
 </head>
 
 <body>
@@ -55,26 +71,21 @@ if (isset($_SESSION['user_id'])) {
             <a href="Paramètre.php">Paramètres</a>
         </nav>
     </header>
-    <div class="container2">
-        <div class="centered-element">
-            <?php if ($user && $photoUtilisateur) { ?>
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($photoUtilisateur); ?>" alt="image profil">
-            <?php } else { ?>
-                <img src="img\3.png" alt="image profil">
-            <?php } ?>
-            <div class="name">
-                <p><?php echo ($user['prenom'] . ' ' . $user['nom']); ?></p>
-            </div>
-        </div>
-        <div class="info">
-            <p class="description"><?php echo($user['description']); ?></p>
-            <p class="instagram"><a href="https://www.instagram.com/<?php echo ($user['instagram']); ?>">@<?php echo ($user['instagram']); ?></a></p>
-            <div class="detail">
-                <a href="Modification_profil.php">Modifier</a>
-            </div>
-        </div>
+
+    <div class="container">
+        <h2 class="page-title">Supprimer le compte</h2>
+        <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+        <p class="user-info">Nom : <?php echo $nomUtilisateur; ?></p>
+        <p class="user-info">Prénom : <?php echo $prenomUtilisateur; ?></p>
+        <form action="" method="POST">
+            <button type="submit" name="supprimer" class="delete-btn">Supprimer le compte</button>
+        </form>
+    </div>
+
+    <div class="mention">
+        <a href="Mentions_legales.php">Mentions légales | Copyright 2023
+            reever</a>
     </div>
 </body>
 
 </html>
-

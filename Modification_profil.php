@@ -86,8 +86,9 @@
                 <label for="prenom">Prénom:</label>
                 <input type="text" name="prenom" value="<?php echo $prenom; ?>"><br>
 
-                <label for="description">Description:</label>
-                <textarea name="description"><?php echo $description; ?></textarea><br>
+                <label for="description">Description:</label> <span id="counter">100</span> restants<br>
+                <textarea name="description" maxlength="100" oninput="updateCounter(this)"><?php echo $description; ?></textarea>
+                
 
                 <label for="instagram">Instagram:</label>
                 <input type="text" name="instagram" value="<?php echo $instagram; ?>"><br>
@@ -98,5 +99,30 @@
             </form>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var textarea = document.querySelector('textarea[name="description"]');
+        var counter = document.getElementById('counter');
+        var maxLength = 100;
+        
+        updateCounter();
+        
+        textarea.addEventListener('input', updateCounter);
+        
+        function updateCounter() {
+            var remaining = maxLength - textarea.value.length;
+            counter.textContent = remaining;
+            
+            if (remaining === 1 || remaining === 0) {
+                counter.textContent += ' caractère';
+            } else {
+                counter.textContent += ' caractères';
+            }
+        }
+    });
+</script>
+
+
 </body>
 </html>

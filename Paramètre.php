@@ -20,7 +20,7 @@
     </header>
 
     <div class="contenu">
-        <a href="">Désactiver le compte</a>
+        <a href="supprimer_compte.php">Désactiver le compte</a>
         <a href="Connexion.php">Déconnexion</a>
     </div>
 

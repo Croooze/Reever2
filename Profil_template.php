@@ -32,7 +32,11 @@ if (isset($_SESSION['user_id'])) {
         $instaUtilisateur = $user['instagram'];
     }
 }
+
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,20 +66,17 @@ if (isset($_SESSION['user_id'])) {
                 <img src="img\3.png" alt="image profil">
             <?php } ?>
             <div class="name">
-                <p>
-                    <?php echo ($user['prenom'] . ' ' . $user['nom']); ?>
-                </p>
+                <p><?php echo ($user['prenom'] . ' ' . $user['nom']); ?></p>
             </div>
         </div>
         <div class="info">
-            <p class="description">
-                <?php echo ($user['description']); ?>
-            </p>
-            <p class="instagram">@
-                <?php echo ($user['instagram']); ?>
-            </p>
-        </div>
+            <p class="description"><?php echo($user['description']); ?></p>
+            <p class="instagram"><a href="https://www.instagram.com/<?php echo ($user['instagram']); ?>">@<?php echo ($user['instagram']); ?></a></p>
+            <div class="detail">
+            <a href="javascript:history.back()">Retour</a>
 
+            </div>
+        </div>
     </div>
 </body>
 
