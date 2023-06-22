@@ -27,6 +27,23 @@ $stmt->bindParam(':userId', $_SESSION['user_id']);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Récupérer le QR code de l'événement
+$qrCodeData = null;
+if (isset($_GET['nom'])) {
+    $nomEvenement = $_GET['nom'];
+
+    // Récupérer le QR code de l'événement dans la base de données
+    $sql = "SELECT qr_code FROM event WHERE nom = :nomEvenement";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':nomEvenement', $nomEvenement);
+    $stmt->execute();
+    $qrCodeRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($qrCodeRow && $qrCodeRow['qr_code']) {
+        $qrCodeData = $qrCodeRow['qr_code'];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -49,48 +66,52 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         </nav>
     </header>
 
-    
-
-
-    <?php 
-    // Vérifier si le nom de l'événement est présent dans les paramètres de l'URL
+    <?php
     if (isset($_GET['nom'])) {
         $nomEvenement = $_GET['nom'];
         echo '<h1 style="color: #fff;">Liste des participants à l\'événement : ' . $nomEvenement . '</h1>';
-
     } else {
         echo '<p>Événement : [Nom de l\'événement non spécifié]</p>';
     }
     ?>
-    <div class="lemon">
-    <ul>
-    <?php
-    // Récupérer la liste des participants distincts
-    $sql = "SELECT DISTINCT u.id_user, u.nom, u.prenom, u.photo FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':nomEvenement', $_GET['nom']);
-    $stmt->execute();
-    $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($participants as $participant) {
-        $photoParticipant = $participant['photo'];
-        $nomParticipant = $participant['nom'];
-        $prenomParticipant = $participant['prenom'];
-    ?>
-        <li>
-            <div class="participant">
-                <?php if ($photoParticipant) { ?>
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" style="border-radius: 50%;">
-                <?php } else { ?>
-                    <img src="img/default.png" alt="image profil" width="70px" style="border-radius: 50%;">
-                <?php } ?>
-                <a href="Profil_template.php?nom=<?php echo urlencode($participant['nom']); ?>"><?php echo $participant['nom'] . ' ' . $participant['prenom']; ?></a>
-            </div>
-        </li>
-    <?php } ?>
-</ul>
+    <div class="lemon">
+        <ul>
+            <?php
+            $sql = "SELECT DISTINCT u.id_user, u.nom, u.prenom, u.photo FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nomEvenement', $_GET['nom']);
+            $stmt->execute();
+            $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($participants as $participant) {
+                $photoParticipant = $participant['photo'];
+                $nomParticipant = $participant['nom'];
+                $prenomParticipant = $participant['prenom'];
+            ?>
+                <li>
+                    <div class="participant">
+                        <?php if ($photoParticipant) { ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" style="border-radius: 50%;">
+                        <?php } else { ?>
+                            <img src="img/default.png" alt="image profil" width="70px" style="border-radius: 50%;">
+                        <?php } ?>
+                        <a href="Profil_template.php?nom=<?php echo urlencode($participant['nom']); ?>"><?php echo $participant['nom'] . ' ' . $participant['prenom']; ?></a>
+                    </div>
+                </li>
+            <?php } ?>
+        </ul>
     </div>
     <a href="Accueil.php" class="btn-retour"><-Retour</a>
+
+    <?php if ($qrCodeData) { ?>
+        <h2 class="text_list">QR Code de l'événement :</h2>
+        <div>
+            <img src="data:image/png;base64,<?php echo base64_encode($qrCodeData); ?>" alt="QR Code">
+        </div>
+    <?php } ?>
+
+    
 </body>
 
 </html>

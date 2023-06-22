@@ -32,9 +32,15 @@ if (isset($_POST['submit'])) {
             $errors[] = 'Ce nom d\'événement est indisponible, veuillez en saisir un autre.';
         } else {
             // Insérer l'événement dans la base de données
-            $sql = "INSERT INTO event(nom) VALUES (:nom)";
+            $sql = "INSERT INTO event(nom, qr_code) VALUES (:nom, :qrCode)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':nom', $nom);
+
+            // Générer le QR code
+            $url = "http://" . $_SERVER['HTTP_HOST'] . "/reever/participer.php?nom=" . urlencode($nom);
+            $qrCodeData = file_get_contents("https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url));
+            $stmt->bindParam(':qrCode', $qrCodeData, PDO::PARAM_LOB);
+
             $stmt->execute();
 
             $eventId = $conn->lastInsertId();
@@ -66,7 +72,6 @@ if (isset($_POST['submit'])) {
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-            <a href="Notification.php">Notification</a>
             <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
         </nav>
@@ -86,7 +91,15 @@ if (isset($_POST['submit'])) {
             if (isset($_POST['submit']) && empty($errors)) {
                 $nom = $_POST['nom'];
                 $url = "http://" . $_SERVER['HTTP_HOST'] . "/reever/participer.php?nom=" . urlencode($nom);
-                echo '<a href="/reever/participer.php?nom=' . urlencode($nom) . '"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' . urlencode($url) . '"></a>';
+                $qrCodeData = file_get_contents("https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url));
+                echo '<a href="/reever/participer.php?nom=' . urlencode($nom) . '"><img src="data:image/png;base64,' . base64_encode($qrCodeData) . '"></a>';
+
+                // Mettre à jour le champ 'qr_code' dans la table 'event'
+                $sql = "UPDATE event SET qr_code = :qrCode WHERE nom = :nom";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':qrCode', $qrCodeData, PDO::PARAM_LOB);
+                $stmt->bindParam(':nom', $nom);
+                $stmt->execute();
             }
             ?>
         </div>
