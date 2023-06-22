@@ -63,20 +63,32 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     }
     ?>
     <div class="lemon">
-        <ul>
-            <?php
-            // Récupérer la liste des participants distincts
-            $sql = "SELECT DISTINCT u.nom, u.prenom FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nomEvenement', $_GET['nom']);
-            $stmt->execute();
-            $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    <ul>
+    <?php
+    // Récupérer la liste des participants distincts
+    $sql = "SELECT DISTINCT u.id_user, u.nom, u.prenom, u.photo FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':nomEvenement', $_GET['nom']);
+    $stmt->execute();
+    $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($participants as $participant) {
-                echo '<li><a href="Profil_template.php?nom=' . urlencode($participant['nom']) . '">' . $participant['nom'] . ' ' . $participant['prenom'] . '</a></li>';
-            }
-            ?>
-        </ul>
+    foreach ($participants as $participant) {
+        $photoParticipant = $participant['photo'];
+        $nomParticipant = $participant['nom'];
+        $prenomParticipant = $participant['prenom'];
+    ?>
+        <li>
+            <div class="participant">
+                <?php if ($photoParticipant) { ?>
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px">
+                <?php } else { ?>
+                    <img src="img/default.png" alt="image profil">
+                <?php } ?>
+                <p><?php echo $nomParticipant . ' ' . $prenomParticipant; ?></p>
+            </div>
+        </li>
+    <?php } ?>
+</ul>
     </div>
     <a href="Accueil.php" class="btn-retour"><-Retour</a>
 </body>
