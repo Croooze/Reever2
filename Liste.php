@@ -80,7 +80,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         <li>
             <div class="participant">
                 <?php if ($photoParticipant) { ?>
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" style="border-radius: 50%;">
                 <?php } else { ?>
                     <img src="img/default.png" alt="image profil">
                 <?php } ?>
