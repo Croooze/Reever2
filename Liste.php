@@ -27,9 +27,20 @@ $stmt->bindParam(':userId', $_SESSION['user_id']);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Récupérer le QR code de l'événement
-$qrCodeData = null;
-if (isset($_GET['nom'])) {
+// Récupérer le nom de l'événement
+$nomEvenement = isset($_GET['nom']) ? $_GET['nom'] : '';
+
+// Fonction pour télécharger le QR code
+function downloadQRCode($data, $filename)
+{
+    header('Content-Type: image/png');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    echo $data;
+    exit;
+}
+
+// Vérifier si le QR code est disponible pour le téléchargement
+if (isset($_GET['nom']) && isset($_GET['download'])) {
     $nomEvenement = $_GET['nom'];
 
     // Récupérer le QR code de l'événement dans la base de données
@@ -41,9 +52,10 @@ if (isset($_GET['nom'])) {
 
     if ($qrCodeRow && $qrCodeRow['qr_code']) {
         $qrCodeData = $qrCodeRow['qr_code'];
+        $filename = 'qrcode.png';
+        downloadQRCode($qrCodeData, $filename);
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -66,21 +78,20 @@ if (isset($_GET['nom'])) {
         </nav>
     </header>
 
-    <?php
-    if (isset($_GET['nom'])) {
-        $nomEvenement = $_GET['nom'];
-        echo '<h1 style="color: #fff;">Liste des participants à l\'événement : ' . $nomEvenement . '</h1>';
-    } else {
-        echo '<p>Événement : [Nom de l\'événement non spécifié]</p>';
-    }
-    ?>
+    <?php if (!empty($nomEvenement)) { ?>
+        <h1 style="color: #fff;">Liste des participants à l'événement :
+            <?php echo $nomEvenement; ?>
+        </h1>
+    <?php } else { ?>
+        <p>Événement : [Nom de l'événement non spécifié]</p>
+    <?php } ?>
 
     <div class="lemon">
         <ul>
             <?php
             $sql = "SELECT DISTINCT u.id_user, u.nom, u.prenom, u.photo FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nomEvenement', $_GET['nom']);
+            $stmt->bindParam(':nomEvenement', $nomEvenement);
             $stmt->execute();
             $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -88,11 +99,12 @@ if (isset($_GET['nom'])) {
                 $photoParticipant = $participant['photo'];
                 $nomParticipant = $participant['nom'];
                 $prenomParticipant = $participant['prenom'];
-            ?>
+                ?>
                 <li>
                     <div class="participant">
                         <?php if ($photoParticipant) { ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" style="border-radius: 50%;">
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil"
+                                width="70px" style="border-radius: 50%;">
                         <?php } else { ?>
                             <img src="img/default.png" alt="image profil" width="70px" style="border-radius: 50%;">
                         <?php } ?>
@@ -102,16 +114,14 @@ if (isset($_GET['nom'])) {
             <?php } ?>
         </ul>
     </div>
-    <a href="Accueil.php" class="btn-retour"><-Retour</a>
+    <a href="Accueil.php" class="btn-retour"><- Retour</a>
 
-    <?php if ($qrCodeData) { ?>
-        <h2 class="text_list">QR Code de l'événement :</h2>
-        <div>
-            <img src="data:image/png;base64,<?php echo base64_encode($qrCodeData); ?>" alt="QR Code">
-        </div>
-    <?php } ?>
-
-    
+            <?php if (!empty($nomEvenement)) { ?>
+                <div>
+                    <a href="?nom=<?php echo urlencode($nomEvenement); ?>&download=1" class="btn-download">Voir QR Code de
+                        l'événement</a>
+                </div>
+            <?php } ?>
 </body>
 
 </html>
