@@ -82,7 +82,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 <?php if ($photoParticipant) { ?>
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" style="border-radius: 50%;">
                 <?php } else { ?>
-                    <img src="img/default.png" alt="image profil">
+                    <img src="img/default.png" alt="image profil" width="70px" style="border-radius: 50%;">
                 <?php } ?>
                 <a href="Profil_template.php?nom=<?php echo urlencode($participant['nom']); ?>"><?php echo $participant['nom'] . ' ' . $participant['prenom']; ?></a>
             </div>
