@@ -50,7 +50,7 @@ if (isset($_POST['login'])) {
 <body>
     <div class="gauche">
 <h1>REEVER</h1>
-        <p>Le site de rencontre et de retrouvaille</p>
+        <p class="slogan">Le site de rencontre et de retrouvaille</p>
     </div>
     <div class="droite">
         <div class="box">

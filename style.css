@@ -123,6 +123,12 @@ input[type="date"] {
 	color: black;
 }
 
+.slogan {
+    color: #fff;
+    margin-left: 5%;
+    font-size: 20px;
+}
+
 /******************/
 /*  PAGE ACCUEIL  */
 /******************/
@@ -130,15 +136,20 @@ input[type="date"] {
 /* CSS pour la page d'accueil */
 
 header {
-    font-size: 33px;
-    outline: none;
-    color: white;
-    word-spacing: 50px;
-    background-color: #FAB564;
-    width: 100%;
+    background: rgba(250, 181, 100, 0.9);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-radius: 10px;
     padding-bottom: 2%;
     padding-top: 2%;
+    font-size: 33px;
+    word-spacing: 50px;
+    width: 95%;
+    margin: 0 auto; /* Alignement central */
+    transform: translateY(10px); /* Déplacer vers le bas de 10px */
 }
+
+
 
 .logo {
     text-align: left;
