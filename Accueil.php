@@ -48,6 +48,7 @@ try {
         </nav>
     </header>
 
+
     <section class="evenement">
         <?php if ($event) { ?>
             <?php

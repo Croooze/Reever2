@@ -5,8 +5,13 @@ body {
     padding: 0;
     font-family: 'Montserrat', sans-serif;
     max-height: calc(100vh - 85px); /* Ajustez la valeur 85px en fonction de la hauteur de votre header */
-  overflow-y: scroll;
+  overflow-y: scroll; 
+    background-image: url("img/dots.png");
+    background-size: cover;
+    background-position: center;
+  
 }
+  
 
 /******************/
 /* PAGE CONNEXION */
