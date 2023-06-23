@@ -33,8 +33,8 @@ if (isset($_SESSION['user_id'])) {
         exit();
     }
 
-    // Effectuez une requête pour récupérer les informations de l'utilisateur
-    $sql = "SELECT nom, prenom FROM user WHERE id_user = :user_id";
+    // Effectuez une requête pour récupérer les informations de l'utilisateur, y compris la photo
+    $sql = "SELECT nom, prenom, photo FROM user WHERE id_user = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':user_id', $userId);
     $stmt->execute();
@@ -43,6 +43,7 @@ if (isset($_SESSION['user_id'])) {
     if ($user) {
         $nomUtilisateur = $user['nom'];
         $prenomUtilisateur = $user['prenom'];
+        $photoUtilisateur = $user['photo'];
     }
 } else {
     // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
@@ -63,10 +64,10 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-<header>
+    <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-        <a href="Profil.php">Profil</a>
+            <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
             <?php if ($user && $user['photo']) { ?>
                 <a href="Profil.php" class="profile-link">
@@ -85,6 +86,8 @@ if (isset($_SESSION['user_id'])) {
         <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
         <p class="user-info">Nom : <?php echo $nomUtilisateur; ?></p>
         <p class="user-info">Prénom : <?php echo $prenomUtilisateur; ?></p>
+        <?php if ($photoUtilisateur) { ?>
+        <?php } ?>
         <form action="" method="POST">
             <button type="submit" name="supprimer" class="delete-btn">Supprimer le compte</button>
         </form>

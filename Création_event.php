@@ -14,6 +14,18 @@ try {
 
 $errors = array(); // Variable pour stocker les erreurs
 
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+
+    // Récupérer les informations de l'utilisateur connecté
+    $sql = "SELECT photo FROM user WHERE id_user = :user_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 if (isset($_POST['submit'])) {
     $nom = $_POST['nom'];
 
@@ -44,13 +56,6 @@ if (isset($_POST['submit'])) {
             $stmt->execute();
 
             $eventId = $conn->lastInsertId();
-
-            // Enregistrer l'événement dans la liste de l'utilisateur connecté
-            /*$sql = "INSERT INTO liste(id_event, id_user) VALUES (:event_id, :user_id)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':event_id', $eventId);
-            $stmt->bindParam(':user_id', $userId);
-            $stmt->execute();*/
         }
     }
 }
@@ -68,11 +73,10 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-
-<header>
+    <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-        <a href="Profil.php">Profil</a>
+            <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
             <?php if ($user && $user['photo']) { ?>
                 <a href="Profil.php" class="profile-link">
