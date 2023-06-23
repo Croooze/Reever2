@@ -447,7 +447,7 @@ nav {
     height: 80%;
     margin-top: 8%;
     text-align: center;
-    color: black;
+    color: #fff;
 }
 
 .donnée input {
@@ -473,11 +473,11 @@ nav {
 
 .donnée input[type="text"] {
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(255, 255, 255);
     background: transparent;
     outline: none;
     height: 40px;
-    color: black;
+    color: rgb(255, 255, 255);
     font-size: 17px;
 }
 
@@ -501,7 +501,7 @@ nav {
     margin-top: 6%;
     display: flex;
     justify-content: center;
-    border-left: 1px solid black;
+    border-left: 1px solid rgb(255, 255, 255);
 }
 
 .qrcode p {
@@ -712,7 +712,9 @@ nav {
 }
 
 
-/* Mention Légale*/
+/*****************/
+/*     Mention légale     */
+/*****************/
 
 .mention_legale{
     background-repeat: repeat;
@@ -722,4 +724,50 @@ nav {
     text-align: center;
     width: 60%;
     margin: 0 auto;
+}
+
+
+
+/*****************/
+/*     Participer     */
+/*****************/
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-container button:first-child {
+    margin-right: 10px;
+    border: none;
+    width: 20%;
+    outline: none;
+    height: 40px;
+    background: #FAB564;
+    color: white;
+    font-size: 19px;
+    border-radius: 25px;
+  }
+  
+  
+.button-container button:last-child {
+    margin-left: 10px;
+    border: none;
+    width: 20%;
+    outline: none;
+    height: 40px;
+    background: #FAB564;
+    color: white;
+    font-size: 19px;
+    border-radius: 25px;
+  }
+
+.text-container {
+    margin-top: 100px; /* Ajustez cette valeur selon vos besoins */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }

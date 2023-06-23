@@ -89,7 +89,7 @@ if (isset($_SESSION['user_id'])) {
                 </a>
             <?php } ?>
     </header>
-
+    <div class="text-container">
     <?php
     // Vérifier si le nom de l'événement est présent dans les paramètres de l'URL
     if (isset($_GET['nom'])) {
@@ -100,9 +100,12 @@ if (isset($_SESSION['user_id'])) {
     }
     ?>
 
+
     <p>Vous serez affiché dans la liste de cet événement pour une durée de 24 heures.</p>
 
-    <form method="POST">
+    </div>
+
+    <form class="button-container" method="POST">
         <button type="submit" name="accepter">Accepter</button>
         <button type="submit" name="refuser">Refuser</button>
     </form>
