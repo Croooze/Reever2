@@ -1,3 +1,32 @@
+<?php
+session_start();
+$host = 'localhost';
+$dbname = 'reever';
+$username = 'root';
+$password = '';
+
+$errors = array(); // Variable pour stocker les erreurs
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    $errors[] = "La connexion a échoué : " . $e->getMessage();
+}
+
+// Vérifier si l'utilisateur est connecté
+$user = null;
+if (isset($_SESSION['user_id'])) {
+    // Récupérer les informations de l'utilisateur connecté depuis la base de données
+    $sql = "SELECT * FROM user WHERE id_user = :userId";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':userId', $_SESSION['user_id']);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,11 +36,11 @@
     <title>Mentions Légales - Reever</title>
 </head>
 <body>
-<header>
+    <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-        <a href="Profil.php">Profil</a>
-            <a href="Paramètre.php">Paramètres</a>
+            <a href="Profil.php">Profil</a>
+            <a href="Parametres.php">Paramètres</a>
             <?php if ($user && $user['photo']) { ?>
                 <a href="Profil.php" class="profile-link">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
