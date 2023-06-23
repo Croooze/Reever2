@@ -287,9 +287,11 @@ nav {
 
 .profile-photo {
     width: 70px;
+    height: 70px;
     border-radius: 50%;
     margin-left: 66%;
     position: absolute;
+    transform: translateY(-10px);
 }
 
 
