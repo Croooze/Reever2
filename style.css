@@ -710,3 +710,16 @@ nav {
 .delete-btn:hover {
     background-color: #d00;
 }
+
+
+/* Mention Légale*/
+
+.mention_legale{
+    background-repeat: repeat;
+}
+
+.mention_description{
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+}

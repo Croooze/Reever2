@@ -49,18 +49,19 @@ try {
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-        <a href="Profil.php">Profil</a>
+            <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
         </nav>
         <?php if ($user && $user['photo']) { ?>
-                <a href="Profil.php" class="profile-link">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
-                </a>
-            <?php } else { ?>
-                <a href="Profil.php" class="profile-link">
-                    <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
-                </a>
-            <?php } ?>
+            <a href="Profil.php" class="profile-link">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil"
+                    class="profile-photo">
+            </a>
+        <?php } else { ?>
+            <a href="Profil.php" class="profile-link">
+                <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
+            </a>
+        <?php } ?>
     </header>
 
     <section class="evenement">
@@ -100,43 +101,6 @@ try {
             </b>
         </div>
     </section>
-
-    <script type="text/javascript">
-        function generateur(qr_texte) {
-            var qrcode = document.querySelector("#qrcode");
-            qrcode.innerHTML = "";
-            qrcode.style.display = "flex";
-            new QRCode(qrcode, qr_texte);
-        }
-
-        document.querySelector("button[type='submit']").addEventListener("click", function(event) {
-            event.preventDefault();
-            var nom = document.querySelector("input[name='nom']").value;
-            if (nom !== "") {
-                var qrcode = document.querySelector("#qrcode");
-                qrcode.style.display = "none";
-                var url = "/reever/liste.php?nom=" + encodeURIComponent(nom);
-                generateur(url);
-                if (document.querySelector(".center")) {
-                    document.querySelector(".center").style.display = "block";
-                } else {
-                    var centerDiv = document.createElement("div");
-                    centerDiv.className = "center";
-                    var customBtn = document.createElement("a");
-                    customBtn.href = "personnalisation.php";
-                    customBtn.className = "custom-btn";
-                    customBtn.textContent = "Personnaliser Événement";
-                    centerDiv.appendChild(customBtn);
-                    document.body.appendChild(centerDiv);
-                }
-                // Mettre à jour le lien de l'événement sur la page d'accueil
-                var eventLink = document.querySelector(".event-link");
-                if (eventLink) {
-                    eventLink.href = "liste.php?nom=" + encodeURIComponent(nom);
-                }
-            }
-        });
-    </script>
 
 </body>
 
