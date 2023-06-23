@@ -155,7 +155,7 @@ header {
     word-spacing: 50px;
     width: 95%;
     margin: 0 auto; /* Alignement central */
-    transform: translateY(10px); /* Déplacer vers le bas de 10px */
+    transform: translateY(20px); /* Déplacer vers le bas de 10px */
     display: flex;
 }
 
