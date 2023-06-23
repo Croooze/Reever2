@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
                 </a>
             <?php } else { ?>
                 <a href="Profil.php" class="profile-link">
-                    <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
+                    <img src="img/default.png" alt="Photo de profil" class="profile-photo">
                 </a>
             <?php } ?>
     </header>
