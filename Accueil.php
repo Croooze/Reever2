@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reever</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
 <?php
 session_start();
 $host = 'localhost';
@@ -32,21 +21,47 @@ try {
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
         $event = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Récupérer les informations de l'utilisateur connecté
+        $sql = "SELECT photo FROM user WHERE id_user = :userId";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reever</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
     <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-            <a href="Profil.php">Profil</a>
+        <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
+            <?php if ($user && $user['photo']) { ?>
+                <a href="Profil.php" class="profile-link">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
+                </a>
+            <?php } else { ?>
+                <a href="Profil.php" class="profile-link">
+                    <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
+                </a>
+            <?php } ?>
         </nav>
     </header>
-
 
     <section class="evenement">
         <?php if ($event) { ?>
@@ -72,7 +87,6 @@ try {
         <?php } ?>
     </section>
 
-
     <section class="card">
         <div class="left">
             <b>
@@ -95,7 +109,7 @@ try {
             new QRCode(qrcode, qr_texte);
         }
 
-        document.querySelector("button[type='submit']").addEventListener("click", function  (event) {
+        document.querySelector("button[type='submit']").addEventListener("click", function(event) {
             event.preventDefault();
             var nom = document.querySelector("input[name='nom']").value;
             if (nom !== "") {

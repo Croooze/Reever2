@@ -260,7 +260,7 @@ nav {
 
 .left {
     width: 300px;
-    background-color: #d9d9d9;
+    background-color: #FAB564;
     height: 100%;
     border-radius: 30px;
     border: 1px solid black;
@@ -268,7 +268,7 @@ nav {
 
 .right {
     width: 300px;
-    background-color: #d9d9d9;
+    background-color: #FAB564;
     height: 100%;
     border-radius: 30px;
     border: 1px solid black;
@@ -283,6 +283,11 @@ nav {
     display: flex;
     justify-content: center;
     margin-top: 19%;
+}
+
+.profile-photo {
+    width: 70px;
+    border-radius: 50%;
 }
 
 

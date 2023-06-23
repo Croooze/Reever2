@@ -69,14 +69,22 @@ if (isset($_POST['submit'])) {
 
 <body>
 
-    <header>
+<header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-            <a href="Profil.php">Profil</a>
+        <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
+            <?php if ($user && $user['photo']) { ?>
+                <a href="Profil.php" class="profile-link">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
+                </a>
+            <?php } else { ?>
+                <a href="Profil.php" class="profile-link">
+                    <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
+                </a>
+            <?php } ?>
         </nav>
     </header>
-
     <section class="zone">
         <div class="donnée">
             <form action="" method="POST">
