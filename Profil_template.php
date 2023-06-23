@@ -79,7 +79,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="info">
             <p class="description"><?php echo($user['description']); ?></p>
-            <p class="instagram"><a href="https://www.instagram.com/<?php echo ($user['instagram']); ?>">@<?php echo ($user['instagram']); ?></a></p>
+            <p class="instagram"><a href="https://www.instagram.com/<?php echo ($user['instagram']); ?>" target="_blank">@<?php echo ($user['instagram']); ?></a></p>
             <div class="detail">
             <a href="javascript:history.back()">Retour</a>
 

@@ -740,29 +740,19 @@ nav {
     justify-content: center;
 }
 
-.button-container button:first-child {
-    margin-right: 10px;
-    border: none;
+.button-container button {
+    padding: 10px 20px;
     width: 20%;
-    outline: none;
-    height: 40px;
-    background: #FAB564;
-    color: white;
-    font-size: 19px;
-    border-radius: 25px;
+    background-color: #FAB564;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
-  
-.button-container button:last-child {
-    margin-left: 10px;
-    border: none;
-    width: 20%;
-    outline: none;
-    height: 40px;
-    background: #FAB564;
-    color: white;
-    font-size: 19px;
-    border-radius: 25px;
+  .button-container button:hover {
+    background-color: #ffab4c;
   }
 
 .text-container {
