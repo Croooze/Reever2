@@ -7,7 +7,7 @@ body {
     max-height: calc(100vh - 85px); /* Ajustez la valeur 85px en fonction de la hauteur de votre header */
     background-image: url("img/dots.png");
     background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat;
   
 }
 
