@@ -71,7 +71,7 @@ if (isset($_POST['envoyer'])) {
     <link rel='stylesheet' href='style.css'>
 </head>
 
-<body>
+<body class="inscription">
     <div class="gauche">
         <h1>REEVER</h1>
         <p class ="slogan">Le site de rencontre et de retrouvaille</p>

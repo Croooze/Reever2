@@ -47,9 +47,9 @@ if (isset($_POST['login'])) {
     <title>Connexion</title>
     <link rel='stylesheet' href='style.css'>
 </head>
-<body>
+<body class="connexion">
     <div class="gauche">
-<h1>REEVER</h1>
+        <h1>REEVER</h1>
         <p class="slogan">Le site de rencontre et de retrouvaille</p>
     </div>
     <div class="droite">
