@@ -78,7 +78,8 @@ if (isset($_POST['submit'])) {
         <nav>
             <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
-            <?php if ($user && $user['photo']) { ?>
+        </nav>
+        <?php if ($user && $user['photo']) { ?>
                 <a href="Profil.php" class="profile-link">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
                 </a>
@@ -87,7 +88,6 @@ if (isset($_POST['submit'])) {
                     <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
                 </a>
             <?php } ?>
-        </nav>
     </header>
 
     <h1>Scan QR Code</h1>
