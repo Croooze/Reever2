@@ -52,7 +52,7 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
 
     if ($qrCodeRow && $qrCodeRow['qr_code']) {
         $qrCodeData = $qrCodeRow['qr_code'];
-        $filename = 'qrcode.png';
+        $filename = urlencode($nomEvenement) . '.png';
         downloadQRCode($qrCodeData, $filename);
     }
 }
@@ -70,21 +70,21 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
 </head>
 
 <body>
-<header>
+    <header>
         <a href="Accueil.php" class="logo">REEVER</a>
         <nav>
-        <a href="Profil.php">Profil</a>
+            <a href="Profil.php">Profil</a>
             <a href="Paramètre.php">Paramètres</a>
         </nav>
         <?php if ($user && $user['photo']) { ?>
-                <a href="Profil.php" class="profile-link">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
-                </a>
-            <?php } else { ?>
-                <a href="Profil.php" class="profile-link">
-                    <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
-                </a>
-            <?php } ?>
+            <a href="Profil.php" class="profile-link">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
+            </a>
+        <?php } else { ?>
+            <a href="Profil.php" class="profile-link">
+                <img src="img/default-profile-photo.jpg" alt="Photo de profil" class="profile-photo">
+            </a>
+        <?php } ?>
     </header>
 
     <?php if (!empty($nomEvenement)) { ?>
@@ -125,12 +125,11 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
     </div>
     <a href="Accueil.php" class="btn-retour"><- Retour</a>
 
-            <?php if (!empty($nomEvenement)) { ?>
-                <div>
-                    <a href="?nom=<?php echo urlencode($nomEvenement); ?>&download=1" class="btn-download">Voir QR Code de
-                        l'événement</a>
-                </div>
-            <?php } ?>
+    <?php if (!empty($nomEvenement)) { ?>
+        <div>
+            <a href="?nom=<?php echo urlencode($nomEvenement); ?>&download=<?php echo urlencode($nomEvenement); ?>" class="btn-download">Voir QR Code de l'événement</a>
+        </div>
+    <?php } ?>
 </body>
 
 </html>
