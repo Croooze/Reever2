@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
 
     <h1>Scan QR Code</h1>
 
-    <video id="videoElement" autoplay></video>
+    <video id="videoElement" autoplay="autoplay" class="active" style="margin-left: 25%;transform: scaleX(-1);"></video>
     <button onclick="startCamera()">Activer la caméra</button>
 
     <script>
