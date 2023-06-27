@@ -562,6 +562,8 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: fit-content; /* Ajuste la largeur au contenu */
+    margin: 0 auto; /* Centre horizontalement */
 }
 
 
@@ -668,10 +670,11 @@ nav {
 .btn-retour {
     text-decoration: none;
     color: #fff;
-    margin-left: 47%;
     padding-top: 20px;
-    display: block;
     height: 40px; /* Ajustez la hauteur selon vos besoins */
+    display: flex;
+    width: fit-content; /* Ajuste la largeur au contenu */
+    margin: 0 auto; /* Centre horizontalement */
 
 }
 .btn-retour-profil {
@@ -684,6 +687,8 @@ nav {
 .text_list {
     color: #fff;
 }
+
+
 
 
 

@@ -134,7 +134,7 @@ if (!empty($nomEvenement)) {
     <a href="Accueil.php" class="btn-retour"><- Retour</a>
 
     <?php if (!empty($nomEvenement)) { ?>
-        <div>
+        <div class="qrcodediv">
             <a href="?nom=<?php echo urlencode($nomEvenement); ?>&download=<?php echo urlencode($nomEvenement); ?>" class="btn-download">Voir QR Code de l'événement</a>
         </div>
     <?php } ?>
