@@ -68,6 +68,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="img/png" href="img/favicon.ico"/>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <title>Scan QR Code</title>
 </head>

@@ -67,6 +67,7 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reever - Liste des participants</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="img/png" href="img/favicon.ico"/>
 </head>
 
 <body>

@@ -46,6 +46,7 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel='stylesheet' href='style.css'>
+    <link rel="shortcut icon" type="img/png" href="img/favicon.ico"/>
 </head>
 <body class="connexion">
     <div class="gauche">
