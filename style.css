@@ -28,7 +28,7 @@ body {
 
 .gauche {
     background-color: #FAB564 ;
-    width: 40%;
+    width: 43%;
     height: 100%;
     position: absolute;
 }
@@ -36,7 +36,7 @@ body {
 .droite {
     float: right;
     height: 100%;
-    width: 60%;
+    width: 52%;
     background-color: white;
 }
 

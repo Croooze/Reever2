@@ -88,7 +88,8 @@ if (!empty($nomEvenement)) {
         </nav>
         <?php if ($user && $user['photo']) { ?>
             <a href="Profil.php" class="profile-link">
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil" class="profile-photo">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($user['photo']); ?>" alt="Photo de profil"
+                    class="profile-photo">
             </a>
         <?php } else { ?>
             <a href="Profil.php" class="profile-link">
@@ -98,7 +99,11 @@ if (!empty($nomEvenement)) {
     </header>
 
     <?php if (!empty($nomEvenement)) { ?>
-        <h1 style="color: #fff;">Liste des participants à l'événement : <?php echo $nomEvenement; ?> (<?php echo $participantCount['participantCount']; ?> <?php echo ($participantCount['participantCount'] > 1) ? 'participants' : 'participant'; ?>)</h1>
+        <h1 style="color: #fff;">Liste des participants à l'événement :
+            <?php echo $nomEvenement; ?> (
+            <?php echo $participantCount['participantCount']; ?>
+            <?php echo ($participantCount['participantCount'] > 1) ? 'participants' : 'participant'; ?>)
+        </h1>
 
     <?php } else { ?>
         <p>Événement : [Nom de l'événement non spécifié]</p>
@@ -117,15 +122,17 @@ if (!empty($nomEvenement)) {
                 $photoParticipant = $participant['photo'];
                 $nomParticipant = $participant['nom'];
                 $prenomParticipant = $participant['prenom'];
-            ?>
+                ?>
                 <li>
                     <div class="participant">
                         <?php if ($photoParticipant) { ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" height="70px" style="border-radius: 50%;">
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil"
+                                width="70px" height="70px" style="border-radius: 50%;">
                         <?php } else { ?>
-                            <img src="img/default.png" alt="image profil" width="70px" height="70px" style="border-radius: 50%;">
+                            <img src="img/default.png" alt="image profil" width="70px" height="70px"
+                                style="border-radius: 50%;">
                         <?php } ?>
-                        <a href="Profil_template.php?nom=<?php echo urlencode($participant['nom']); ?>"><?php echo $participant['nom'] . ' ' . $participant['prenom']; ?></a>
+                        <a href="Profil_template.php?nom=<?php echo urlencode($participant['nom']); ?>"><?php echo $participant['prenom'] . ' ' . $participant['nom']; ?></a>
                     </div>
                 </li>
             <?php } ?>
@@ -133,11 +140,12 @@ if (!empty($nomEvenement)) {
     </div>
     <a href="Accueil.php" class="btn-retour"><- Retour</a>
 
-    <?php if (!empty($nomEvenement)) { ?>
-        <div class="qrcodediv">
-            <a href="?nom=<?php echo urlencode($nomEvenement); ?>&download=<?php echo urlencode($nomEvenement); ?>" class="btn-download">Voir QR Code de l'événement</a>
-        </div>
-    <?php } ?>
+            <?php if (!empty($nomEvenement)) { ?>
+                <div class="qrcodediv">
+                    <a href="?nom=<?php echo urlencode($nomEvenement); ?>&download=<?php echo urlencode($nomEvenement); ?>"
+                        class="btn-download">Voir QR Code de l'événement</a>
+                </div>
+            <?php } ?>
 </body>
 
 </html>
