@@ -8,8 +8,44 @@ body {
     background-image: url("img/dots.png");
     background-size: cover;
     background-repeat: no-repeat;
-  
 }
+
+/* Firefox */
+*{
+    scrollbar-width: thin;
+    scrollbar-color: #FAB564 #DFE9EB;
+    }
+    
+    /* Chrome, Edge and Safari */
+    *::-webkit-scrollbar {
+      width: 10px;
+      width: 10px;
+    }
+    *::-webkit-scrollbar-track {
+      border-radius: 5px;
+      background-color: #DFE9EB;
+    }
+    
+    *::-webkit-scrollbar-track:hover {
+      background-color: #B8C0C2;
+    }
+    
+    *::-webkit-scrollbar-track:active {
+      background-color: #B8C0C2;
+    }
+    
+    *::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: #FAB564;
+    }
+    
+    *::-webkit-scrollbar-thumb:hover {
+      background-color: #FA9E46;
+    }
+    
+    *::-webkit-scrollbar-thumb:active {
+      background-color: #f78400;
+    }
 
 .connexion {
     background-image: none;
@@ -209,9 +245,9 @@ nav {
 .content {
     margin-top: 0;
     padding: 0;
-    width: 600px;
-    min-height: 250px;
-    background-image:url("img/dots.png");
+    width: 650px; /* Remplacez la valeur par la largeur souhaitée */
+    height: 300px; /* Remplacez la valeur par la hauteur souhaitée */
+    background-image: url("img/dots.png");
     border: 1px solid black;
     margin-top: 3%;
     border-radius: 30px;
@@ -225,6 +261,7 @@ nav {
     object-fit: cover;
     object-position: center;
 }
+
 
 .event-name {
     position: absolute;
