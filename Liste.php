@@ -98,9 +98,8 @@ if (!empty($nomEvenement)) {
     </header>
 
     <?php if (!empty($nomEvenement)) { ?>
-        <h1 style="color: #fff;">Liste des participants à l'événement :
-            <?php echo $nomEvenement; ?> (<?php echo $participantCount['participantCount']; ?> participants)
-        </h1>
+        <h1 style="color: #fff;">Liste des participants à l'événement : <?php echo $nomEvenement; ?> (<?php echo $participantCount['participantCount']; ?> <?php echo ($participantCount['participantCount'] > 1) ? 'participants' : 'participant'; ?>)</h1>
+
     <?php } else { ?>
         <p>Événement : [Nom de l'événement non spécifié]</p>
     <?php } ?>
