@@ -90,10 +90,10 @@ if (isset($_SESSION['user_id'])) {
         <div class="text">
             <form action="update_profil.php" method="POST" enctype="multipart/form-data">
                 <label for="nom">Nom:</label>
-                <input type="text" name="nom" value="<?php echo $nom; ?>"><br>
+                <input type="text" name="nom" value="<?php echo $nom; ?>" require><br>
 
                 <label for="prenom">Prénom:</label>
-                <input type="text" name="prenom" value="<?php echo $prenom; ?>"><br>
+                <input type="text" name="prenom" value="<?php echo $prenom; ?>" require><br>
 
                 <label for="description">Description:</label> <span id="counter">100</span> restants<br>
                 <textarea name="description" maxlength="100" oninput="updateCounter(this)"><?php echo $description; ?></textarea>
