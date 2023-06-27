@@ -56,6 +56,15 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
         downloadQRCode($qrCodeData, $filename);
     }
 }
+
+// Compter le nombre de participants à l'événement
+if (!empty($nomEvenement)) {
+    $sqlCount = "SELECT COUNT(*) AS participantCount FROM user u INNER JOIN liste l ON u.id_user = l.id_user INNER JOIN event e ON l.id_event = e.id_event WHERE e.nom = :nomEvenement";
+    $stmtCount = $conn->prepare($sqlCount);
+    $stmtCount->bindParam(':nomEvenement', $nomEvenement);
+    $stmtCount->execute();
+    $participantCount = $stmtCount->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +76,7 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reever - Liste des participants</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" type="img/png" href="img/favicon.ico"/>
+    <link rel="shortcut icon" type="img/png" href="img/favicon.ico" />
 </head>
 
 <body>
@@ -90,7 +99,7 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
 
     <?php if (!empty($nomEvenement)) { ?>
         <h1 style="color: #fff;">Liste des participants à l'événement :
-            <?php echo $nomEvenement; ?>
+            <?php echo $nomEvenement; ?> (<?php echo $participantCount['participantCount']; ?> participants)
         </h1>
     <?php } else { ?>
         <p>Événement : [Nom de l'événement non spécifié]</p>
@@ -109,12 +118,11 @@ if (isset($_GET['nom']) && isset($_GET['download'])) {
                 $photoParticipant = $participant['photo'];
                 $nomParticipant = $participant['nom'];
                 $prenomParticipant = $participant['prenom'];
-                ?>
+            ?>
                 <li>
                     <div class="participant">
                         <?php if ($photoParticipant) { ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil"
-                                width="70px" height="70px" style="border-radius: 50%;">
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($photoParticipant); ?>" alt="image profil" width="70px" height="70px" style="border-radius: 50%;">
                         <?php } else { ?>
                             <img src="img/default.png" alt="image profil" width="70px" height="70px" style="border-radius: 50%;">
                         <?php } ?>
