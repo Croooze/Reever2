@@ -126,7 +126,7 @@ if (isset($_POST['submit'])) {
             <?php
             if (isset($_POST['submit']) && empty($errors)) {
                 $nom = $_POST['nom'];
-                $url = "http://" . $_SERVER['HTTP_HOST'] . "/reever/participer.php?nom=" . urlencode($nom);
+                $url = "http://" . $_SERVER['HTTP_HOST']. "/reever/participer.php?nom=" . urlencode($nom);
                 $qrCodeData = file_get_contents("https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url));
                 echo '<a href="/reever/participer.php?nom=' . urlencode($nom) . '"><img src="data:image/png;base64,' . base64_encode($qrCodeData) . '"></a>';
 
